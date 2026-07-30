@@ -15,3 +15,23 @@ export function yyyymmddToIso(yyyymmdd) {
   const s = String(yyyymmdd);
   return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
 }
+
+// 有限併發的 map，避免對外部 API（尤其 Yahoo Finance，單次要對幾十檔股票各打一次）
+// 一次全部平行發送造成被限流或大量失敗。失敗的項目回傳 { error } 而不是讓整批中斷。
+export async function mapWithConcurrency(items, limit, fn) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+  async function worker() {
+    while (nextIndex < items.length) {
+      const current = nextIndex++;
+      try {
+        results[current] = { ok: true, value: await fn(items[current], current) };
+      } catch (err) {
+        results[current] = { ok: false, error: err.message };
+      }
+    }
+  }
+  const workers = Array.from({ length: Math.min(limit, items.length) }, () => worker());
+  await Promise.all(workers);
+  return results;
+}

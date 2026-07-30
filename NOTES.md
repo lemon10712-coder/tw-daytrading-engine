@@ -48,3 +48,26 @@
 **驗收**：`npm test` 34/34 通過；`npm run dev-check` 實際打過四個真實 API 都成功回應（結果顯示現在是台北時間 07-31 盤前，資料自然是 7/30 收盤快照，交易日曆正確判斷 7/31 為交易日）。
 
 **下一步（Task 3，需使用者確認 Task 2 內容後才開始）**：計算引擎——VWAP／開盤高低點／昨日高低點／族群同步性分數，含單元測試（驗證無 look-ahead）。
+
+## 2026-07-31：Task 3＋4 完成（計算引擎＋大盤方向引擎），並串成完整 pipeline 實測跑通
+
+使用者在這次對話中明確表示不用每個任務都停下來等確認，改成「拆成階段性任務，直接整個做完」，所以 Task 3-7 連續做，只有真的需要使用者提供資訊（LINE token）的地方才會停。
+
+**Task 3（計算引擎）**：`scripts/lib/indicators.js`——`calcVWAPSeries`／`latestVWAP`（成交量加權平均價，用典型價格(H+L+C)/3）、`calcOpeningRange`（開盤N分鐘視窗高低點）、`calcPriorDayLevels`（找「今天以前最新一筆」日線，避免look-ahead）、`calcSectorSync`（族群同步性分類）。新增 `config/thresholds.json` 放可調整門檻。18 個新單元測試，VWAP 用手算數字驗證。
+
+**Task 4（大盤方向引擎）**：`scripts/lib/market-state.js`——`classifyInternational`／`classifyTaiwanMarket`／`classifyMarketState` 三層規則，核心原則是「國際跟台股方向要一致才輸出偏多/偏空，任何一層缺資料或兩層衝突一律保守輸出觀望/資料不足」，不會為了給答案硬掰方向。15 個新單元測試涵蓋每種分類分支跟衝突情境。
+
+**串成 `scripts/run-engine.mjs` 主要引擎入口**，實際用真實資料跑通全流程（不是只跑單元測試）：抓 79 檔股票即時報價＋79 檔分鐘K線（算VWAP）＋11 項國際指標＋加權/櫃買/台指期 → 大盤方向判斷 → 26 族群同步性計算 → 寫入 `data/market-state/YYYY-MM-DD.json`／`data/sector-radar/YYYY-MM-DD.json`（依「當日累積多筆快照」設計，每次執行 append 一筆，不是覆蓋）／`data/quotes/latest.json`。單次執行約 8 秒。
+
+**過程中抓到並修好一個真的資料正確性 bug**：`config/sectors.json` 裡的 5347（世界先進，晶圓代工族群）其實是**上櫃（TPEx）股票，不是上市（TWSE）**——用 `tse_` 前綴查 TWSE MIS 直接查無此代號（`c` 欄位空字串），Yahoo Finance 用 `.TW` 後綴也是 HTTP 404。這暴露出建族群設定檔當時只查證了「代號正確」，沒有連帶查證「上市或上櫃」，兩者用不同的 API 前綴/後綴。
+
+**修法（不是把 5347 硬改成寫死 otc，而是讓抓取邏輯自己判斷）**：
+- `twse-quotes.js`：`fetchTwseQuotes` 先用 `tse_` 前綴批次查一次，把查無資料（`c` 為空字串）的代號挑出來，自動改用 `otc_` 前綴重查一次再合併結果；兩邊都查不到才在回傳物件標註明確錯誤（`error: '上市／上櫃查詢皆查無此代號...'`），不會靜默漏掉。
+- `run-engine.mjs` 的 `fetchSingleStockChart`：先試 `.TW`，遇到 HTTP 404／chart.error／空result 三種「查無此代號」訊號就自動改試 `.TWO`，其他真正的錯誤（網路失敗等）照樣往外拋不吞掉。
+- 這個設計的好處是**之後族群名單裡不管加哪支股票，都不用先手動查它是上市還上櫃**，程式自己會試兩邊——比逐一手動標註 exchange 欄位更省事也更不容易漏掉像 5347 這種情況。
+
+**驗證結果**：修好後重跑，79/79 檔 TWSE 報價、79/79 檔 VWAP、11/11 國際指標全部成功，`npm test` 70/70 通過。
+
+**目前 Phase 0 已知的一個簡化（不是bug，是刻意的範圍取捨）**：族群同步性計算目前只用 `representative_stocks`（每族群3-6檔種子名單），不是族群全部成分股，這在 Phase 0 驗證階段是合理簡化——真的要擴大覆蓋範圍屬於「族群管理頁面動態調整」的 Phase 1+ 工作。
+
+**下一步（Task 5）**：靜態網站（今日盤勢總覽＋族群雷達兩頁）＋ GitHub Pages 部署。

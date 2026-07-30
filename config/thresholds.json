@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-31",
+  "note": "可調整門檻，不寫死在程式碼裡。目前數字是 Phase 0 的初始猜測，之後有歷史資料可回測時應該重新校準，不是憑感覺定案的最終值。",
+  "opening_range": {
+    "window_minutes": 5
+  },
+  "sector_sync": {
+    "min_stocks_for_valid_sync": 2,
+    "strong_sync_pct": 0.7,
+    "weak_sync_pct": 0.5
+  },
+  "market_state": {
+    "flat_band_pct": 0.3,
+    "min_intl_signals_for_valid": 1
+  }
+}
