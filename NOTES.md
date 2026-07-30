@@ -110,3 +110,10 @@ gh repo edit lemon10712-coder/tw-daytrading-engine --visibility public --accept-
 **這兩項都不影響先驗證 workflow 邏輯本身對不對**——可以先用 `gh workflow run` 手動觸發 `run-engine.yml`（不帶 notify，這樣就算沒設 LINE token 也不會因為推播失敗而整個 workflow 失敗，`notify-line.js` 設計成 token 沒設就跳過不報錯）驗證 commit/push 邏輯在真實 GitHub Actions 環境能不能跑通，這步不需要等使用者提供東西。
 
 **下一步（Task 7 之前）**：手動觸發 `run-engine.yml` 驗證 workflow 本身正確，再跟使用者要 LINE token 跟（可選）cron-job.org API key，完成排程串接。
+
+**實測結果（用 `gh workflow run` 手動觸發，在真實 GitHub Actions 上跑，不是本機模擬）**：
+- 第一次觸發失敗：`remote: Write access to repository not granted`（HTTP 403）——預設 `GITHUB_TOKEN` 是唯讀，要明確宣告 `permissions: contents: write` 才能 push，這點 daily-trading-site 的 workflow 早就有加，這裡漏掉了。**已修好**（commit `497fdd6`）。
+- 修好後重新觸發：`run-engine.yml` 21 秒內完整跑完（抓資料→算指標→commit→push），本機 `git pull` 確認遠端真的多了一筆 `Update market data` commit——**證明整個 pipeline 在 GitHub 的伺服器上獨立運作，不依賴這台本機開機或連網**，這正是使用者最在意的「真自動化」核心機制。
+- `health-check.yml` 也手動觸發驗證過，11 秒跑完，通過（因為現在不是盤中時段，沒有觸發過期警告）。
+
+**Task 6 現況**：核心 workflow 邏輯（抓資料/算指標/commit/push/健檢判斷）已經在真實 GitHub Actions 上驗證跑得動。**還沒完成的只剩「定時觸發」跟「LINE推播」這兩個需要外部帳號存取的環節**，不是程式邏輯問題。
