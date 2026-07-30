@@ -17,6 +17,9 @@ on:
         options: ['premarket', 'update', 'close']
         default: 'update'
 
+permissions:
+  contents: write
+
 concurrency:
   group: run-engine
   cancel-in-progress: false
