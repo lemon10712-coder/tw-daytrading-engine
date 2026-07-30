@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>台股當沖決策輔助系統 — 今日盤勢總覽</title>
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <h1>台股當沖決策輔助系統 <span class="badge-phase">Phase 0 · MVP</span></h1>
+    <nav class="tabs">
+      <a href="index.html" class="active">盤勢總覽</a>
+      <a href="sectors.html">族群雷達</a>
+    </nav>
+  </header>
+
+  <div class="meta-line" id="meta-line">資料載入中…</div>
+
+  <div id="content">
+    <div class="loading">載入中…</div>
+  </div>
+
+  <div class="warning-box" id="data-warnings" style="display:none;"></div>
+
+  <footer class="page-footer">
+    本系統為決策輔助工具，不構成投資建議，不保證獲利。所有判斷邏輯皆為規則式計算，可在
+    <a href="https://github.com/lemon10712-coder/tw-daytrading-engine" target="_blank" rel="noopener">GitHub repo</a>
+    追蹤原始碼與資料來源。目前為 Phase 0（大盤方向＋族群雷達），尚未包含個股判斷、進場建議、交易日誌、回測。
+  </footer>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+async function main() {
+  const contentEl = document.getElementById('content');
+  const metaEl = document.getElementById('meta-line');
+  const warningsEl = document.getElementById('data-warnings');
+
+  let data;
+  try {
+    data = await fetchJson('data/market-state/latest.json');
+  } catch (err) {
+    contentEl.innerHTML = `<div class="error-box">讀取盤勢資料失敗：${escapeHtml(err.message)}</div>`;
+    return;
+  }
+
+  const entry = data.entry;
+  metaEl.textContent = `資料時間：${entry.generated_at_taipei}（台北時間）　交易日曆：${entry.trading_day.isTradingDay === true ? '交易日' : entry.trading_day.isTradingDay === false ? `休市（${entry.trading_day.reason}）` : '無法驗證'}`;
+
+  const state = entry.market_state.state;
+  const warnings = [];
+  if (entry.trading_day.isTradingDay === null) warnings.push(entry.trading_day.reason);
+  if (entry.intl.direction === '資料不足') warnings.push('國際指標資料不足');
+  if (entry.taiwan.direction === '資料不足') warnings.push('台股加權／櫃買指數資料不足');
+
+  const intlRows = entry.intl.signals.map((s) => `
+    <div class="mini-card">
+      <div class="name">${escapeHtml(s.name)}</div>
+      <div class="value pct ${pctClass(s.pctChange)}">${s.error ? '資料缺失' : formatPct(s.pctChange)}</div>
+    </div>
+  `).join('');
+
+  const twRows = entry.taiwan.signals.map((s) => `
+    <div class="mini-card">
+      <div class="name">${escapeHtml(s.name)}</div>
+      <div class="value pct ${pctClass(s.pctChange)}">${formatPct(s.pctChange)}</div>
+    </div>
+  `).join('');
+
+  contentEl.innerHTML = `
+    <div class="state-banner state-${state}">
+      <div class="state-value">${state}</div>
+      <div class="state-reason">${escapeHtml(entry.market_state.reason)}</div>
+    </div>
+
+    <div class="section-title">第一層．國際市場</div>
+    <div class="meta-line" style="margin-bottom:8px;">${escapeHtml(entry.intl.direction)}：${escapeHtml(entry.intl.reason)}</div>
+    <div class="grid">${intlRows}</div>
+
+    <div class="section-title">第二層．台股整體</div>
+    <div class="meta-line" style="margin-bottom:8px;">${escapeHtml(entry.taiwan.direction)}${entry.taiwan.txBasisNote ? '　' + escapeHtml(entry.taiwan.txBasisNote) : ''}</div>
+    <div class="grid">${twRows}</div>
+  `;
+
+  renderDataWarnings(warningsEl, warnings);
+}
+main();
+</script>
+</body>
+</html>

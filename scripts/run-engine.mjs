@@ -201,10 +201,13 @@ async function main() {
   appendDailyEntry(`data/market-state/${todayIso}.json`, todayIso, marketStateEntry);
   appendDailyEntry(`data/sector-radar/${todayIso}.json`, todayIso, sectorRadarEntry);
   writeJson('data/quotes/latest.json', { generated_at_taipei: generatedAtTaipei, quotes: quoteByCode });
+  // 網站固定讀 latest.json，不用自己猜「今天日期」該讀哪個檔案（避免跟伺服器執行時區/使用者瀏覽器時區的邊界情況打架）
+  writeJson('data/market-state/latest.json', { schema_version: 1, date: todayIso, entry: marketStateEntry });
+  writeJson('data/sector-radar/latest.json', { schema_version: 1, date: todayIso, entry: sectorRadarEntry });
 
   console.log('=== 完成，已寫入 ===');
-  console.log(`  data/market-state/${todayIso}.json`);
-  console.log(`  data/sector-radar/${todayIso}.json`);
+  console.log(`  data/market-state/${todayIso}.json（累積歷史）+ latest.json（給網站讀）`);
+  console.log(`  data/sector-radar/${todayIso}.json（累積歷史）+ latest.json（給網站讀）`);
   console.log('  data/quotes/latest.json');
 }
 
