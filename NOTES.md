@@ -23,3 +23,28 @@
 - `config/thresholds.json`（可調整門檻）尚未建立，README 已預告但留給後續任務
 
 **下一步（Task 2，需使用者確認 Task 1 內容後才開始）**：資料擷取模組——台股 5 分鐘報價＋國際指標＋台指期夜盤抓取程式，含單元測試。
+
+## 2026-07-31：Task 2（資料擷取模組）完成
+
+**做法**：寫程式前先用 `curl` 實際打過四個資料來源確認真實回應格式（不是憑記憶猜欄位名），確認可行後才寫 fetcher 程式：
+- TWSE MIS 即時報價（`mis.twse.com.tw/stock/api/getStockInfo.jsp`，支援 `|` 分隔一次查多檔）
+- Yahoo Finance chart API（`query1.finance.yahoo.com/v8/finance/chart/`，個股分鐘K線跟國際指標同一支 API）
+- TAIFEX MIS 台指期（`mis.taifex.com.tw/futures/api/getQuoteList`，POST 帶 `CID`／`SymbolType` 等參數）
+- **新發現**：TWSE OpenAPI 有官方假日行事曆 JSON（`openapi.twse.com.tw/v1/holidaySchedule/holidaySchedule`，民國年格式如 `1150101`），比 daily-trading-site 當初的做法（沒有交易日曆檢查、直接被 2026-07-10 颱風休市燒到）更進一步——這裡改成**執行時即時查證**，不寫死年度假日清單在程式碼裡（每年都要手動更新、容易漏），查詢失敗時明確回傳 `isTradingDay: null`（無法驗證），不會誤判成交易日。
+
+**檔案**：
+- `scripts/lib/util.js`：共用小工具（數字轉換、五檔字串解析、日期格式轉換）
+- `scripts/lib/time.js`：台北時間／交易日曆判斷
+- `scripts/lib/twse-quotes.js`：台股即時報價批次查詢
+- `scripts/lib/yahoo-finance.js`：分鐘K線／國際指標查詢
+- `scripts/lib/taifex-futures.js`：台指期報價查詢
+- `scripts/test/*.test.js`：34 個單元測試，全部用真實 API 回應節錄成的 fixture（不依賴即時網路，跑 `npm test` = `node --test`），涵蓋正常解析／HTTP錯誤／API層錯誤（rtcode非0000等）／邊界值（空字串轉null不是0、null分鐘要過濾掉）
+- `scripts/dev-check.mjs`：手動即時健檢工具（`npm run dev-check`），不是自動化的一部分，開發時想確認四個來源目前正常再跑
+
+**踩到的坑**：這台機器的 `node --test scripts/test/`（目錄形式）在 Windows 環境下會報 `MODULE_NOT_FOUND`，改成不帶路徑的 `node --test`（讓 Node 自動探索 `*.test.js`）就正常，改用這個寫法比 glob pattern 更簡單也更不依賴 shell 展開行為。
+
+**成交量欄位的誠實標註**：TWSE MIS 回傳的 `tv`／`v`／`ov` 三個欄位語意沒有把握逐一確認（可能是成交量／成交筆數／其他統計量，命名不夠明確），程式裡**沒有假裝知道**，原樣保留在 `rawVolumeFields` 但註明「語意未確認」，VWAP 之類真正需要準確成交量的計算（Task 3）改用 Yahoo 分鐘K線的 `volume`（語意明確：該分鐘成交量）。這是刻意的「不確定就老實標示」而非猜測。
+
+**驗收**：`npm test` 34/34 通過；`npm run dev-check` 實際打過四個真實 API 都成功回應（結果顯示現在是台北時間 07-31 盤前，資料自然是 7/30 收盤快照，交易日曆正確判斷 7/31 為交易日）。
+
+**下一步（Task 3，需使用者確認 Task 2 內容後才開始）**：計算引擎——VWAP／開盤高低點／昨日高低點／族群同步性分數，含單元測試（驗證無 look-ahead）。
