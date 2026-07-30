@@ -1,0 +1,456 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-31",
+  "note": "初始種子名單，代表股/領先觀察股/跟隨股需要使用者過目確認再視為定案。大部分代號已用 WebSearch 於 2026-07-31 查證，少數（標註 verified:false）僅憑既有知識整理、尚未逐一查證，之後族群管理頁面上線後可動態調整領先股，不需再手動改這份檔案。",
+  "sectors": [
+    {
+      "id": "foundry",
+      "name": "晶圓代工",
+      "representative_stocks": [
+        { "code": "2330", "name": "台積電" },
+        { "code": "2303", "name": "聯電" },
+        { "code": "5347", "name": "世界先進" },
+        { "code": "6770", "name": "力積電" }
+      ],
+      "leading_stocks": ["2330"],
+      "following_stocks": ["2303", "5347", "6770"],
+      "intl_indicators": ["^SOX", "^GSPC"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "memory",
+      "name": "記憶體",
+      "representative_stocks": [
+        { "code": "2408", "name": "南亞科" },
+        { "code": "2344", "name": "華邦電" },
+        { "code": "2337", "name": "旺宏" }
+      ],
+      "leading_stocks": ["2408"],
+      "following_stocks": ["2344", "2337"],
+      "intl_indicators": ["MU"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "ic_design",
+      "name": "IC 設計",
+      "representative_stocks": [
+        { "code": "2454", "name": "聯發科" },
+        { "code": "2379", "name": "瑞昱" },
+        { "code": "3661", "name": "世芯-KY" },
+        { "code": "3443", "name": "創意" }
+      ],
+      "leading_stocks": ["2454", "3661"],
+      "following_stocks": ["2379", "3443"],
+      "intl_indicators": ["^SOX"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "compound_semi",
+      "name": "化合物半導體／砷化鎵",
+      "representative_stocks": [
+        { "code": "3105", "name": "穩懋" },
+        { "code": "2455", "name": "全新" },
+        { "code": "8086", "name": "宏捷科" }
+      ],
+      "leading_stocks": ["3105"],
+      "following_stocks": ["2455", "8086"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.8,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "ai_server",
+      "name": "AI 伺服器",
+      "representative_stocks": [
+        { "code": "2382", "name": "廣達" },
+        { "code": "3231", "name": "緯創" },
+        { "code": "6669", "name": "緯穎" },
+        { "code": "2356", "name": "英業達" },
+        { "code": "2376", "name": "技嘉" },
+        { "code": "2317", "name": "鴻海" }
+      ],
+      "leading_stocks": ["2382", "6669"],
+      "following_stocks": ["3231", "2356", "2376", "2317"],
+      "intl_indicators": ["NVDA", "AMD", "^SOX"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 3,
+      "weight": 1.2,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "thermal",
+      "name": "散熱",
+      "representative_stocks": [
+        { "code": "3017", "name": "奇鋐" },
+        { "code": "3324", "name": "雙鴻" }
+      ],
+      "leading_stocks": ["3017"],
+      "following_stocks": ["3324"],
+      "intl_indicators": ["NVDA"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.9,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "pcb_substrate",
+      "name": "PCB／載板",
+      "representative_stocks": [
+        { "code": "3037", "name": "欣興" },
+        { "code": "8046", "name": "南電" },
+        { "code": "3189", "name": "景碩" },
+        { "code": "2368", "name": "金像電" },
+        { "code": "2313", "name": "華通" }
+      ],
+      "leading_stocks": ["3037", "8046"],
+      "following_stocks": ["3189", "2368", "2313"],
+      "intl_indicators": ["NVDA"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "passive_components",
+      "name": "被動元件",
+      "representative_stocks": [
+        { "code": "2327", "name": "國巨" },
+        { "code": "2492", "name": "華新科" },
+        { "code": "3026", "name": "禾伸堂" }
+      ],
+      "leading_stocks": ["2327"],
+      "following_stocks": ["2492", "3026"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.8,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "panel",
+      "name": "面板",
+      "representative_stocks": [
+        { "code": "2409", "name": "友達" },
+        { "code": "3481", "name": "群創" }
+      ],
+      "leading_stocks": ["2409"],
+      "following_stocks": ["3481"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.7,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "shipping",
+      "name": "航運",
+      "representative_stocks": [
+        { "code": "2603", "name": "長榮" },
+        { "code": "2609", "name": "陽明" },
+        { "code": "2615", "name": "萬海" }
+      ],
+      "leading_stocks": ["2603"],
+      "following_stocks": ["2609", "2615"],
+      "intl_indicators": ["CL=F"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.9,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "financials",
+      "name": "金融",
+      "representative_stocks": [
+        { "code": "2881", "name": "富邦金" },
+        { "code": "2882", "name": "國泰金" },
+        { "code": "2891", "name": "中信金" }
+      ],
+      "leading_stocks": ["2881", "2882"],
+      "following_stocks": ["2891"],
+      "intl_indicators": ["^TNX"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.8,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "biotech",
+      "name": "生技",
+      "representative_stocks": [
+        { "code": "6472", "name": "保瑞" },
+        { "code": "6446", "name": "藥華藥" },
+        { "code": "1795", "name": "美時" }
+      ],
+      "leading_stocks": ["6472"],
+      "following_stocks": ["6446", "1795"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.6,
+      "verified": true,
+      "reliability_note": "生技較常屬於個股事件行情（法說/藥證），族群同步性判定不一定可靠，評分權重刻意調低",
+      "allow_manual_edit": true
+    },
+    {
+      "id": "plastics",
+      "name": "塑化",
+      "representative_stocks": [
+        { "code": "1301", "name": "台塑" },
+        { "code": "1303", "name": "南亞" },
+        { "code": "1326", "name": "台化" }
+      ],
+      "leading_stocks": ["1301"],
+      "following_stocks": ["1303", "1326"],
+      "intl_indicators": ["CL=F"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.6,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "steel",
+      "name": "鋼鐵",
+      "representative_stocks": [
+        { "code": "2002", "name": "中鋼" },
+        { "code": "2014", "name": "中鴻" }
+      ],
+      "leading_stocks": ["2002"],
+      "following_stocks": ["2014"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.5,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "cables",
+      "name": "電線電纜",
+      "representative_stocks": [
+        { "code": "1605", "name": "華新" },
+        { "code": "1609", "name": "大亞" },
+        { "code": "1612", "name": "宏泰" }
+      ],
+      "leading_stocks": ["1605"],
+      "following_stocks": ["1609", "1612"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.7,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "construction",
+      "name": "營建",
+      "representative_stocks": [
+        { "code": "2548", "name": "華固" },
+        { "code": "3056", "name": "總太" },
+        { "code": "2542", "name": "興富發" }
+      ],
+      "leading_stocks": ["2548"],
+      "following_stocks": ["3056", "2542"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.5,
+      "verified": false,
+      "reliability_note": "2542 興富發代號僅憑既有知識，未經本次 WebSearch 逐一核對，需使用者確認",
+      "allow_manual_edit": true
+    },
+    {
+      "id": "defense",
+      "name": "軍工",
+      "representative_stocks": [
+        { "code": "2634", "name": "漢翔" }
+      ],
+      "leading_stocks": ["2634"],
+      "following_stocks": [],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.6,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "robotics",
+      "name": "機器人",
+      "representative_stocks": [
+        { "code": "2049", "name": "上銀" },
+        { "code": "2359", "name": "所羅門" },
+        { "code": "1597", "name": "直得" },
+        { "code": "2308", "name": "台達電" }
+      ],
+      "leading_stocks": ["2049", "2359"],
+      "following_stocks": ["1597", "2308"],
+      "intl_indicators": ["NVDA"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "heavy_electric",
+      "name": "重電",
+      "representative_stocks": [
+        { "code": "1519", "name": "華城" },
+        { "code": "1503", "name": "士電" },
+        { "code": "1514", "name": "亞力" },
+        { "code": "1513", "name": "中興電" }
+      ],
+      "leading_stocks": ["1519", "1513"],
+      "following_stocks": ["1503", "1514"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "networking",
+      "name": "網通",
+      "representative_stocks": [
+        { "code": "2345", "name": "智邦" },
+        { "code": "5388", "name": "中磊" },
+        { "code": "6285", "name": "啟碁" }
+      ],
+      "leading_stocks": ["2345"],
+      "following_stocks": ["5388", "6285"],
+      "intl_indicators": ["NVDA"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.9,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "optical_comm",
+      "name": "光通訊",
+      "representative_stocks": [
+        { "code": "4979", "name": "華星光" },
+        { "code": "3363", "name": "上詮" },
+        { "code": "3163", "name": "波若威" }
+      ],
+      "leading_stocks": ["4979"],
+      "following_stocks": ["3363", "3163"],
+      "intl_indicators": ["NVDA"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.0,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "silicon_photonics",
+      "name": "矽光子",
+      "representative_stocks": [
+        { "code": "2330", "name": "台積電" },
+        { "code": "2345", "name": "智邦" },
+        { "code": "3081", "name": "聯亞" },
+        { "code": "4977", "name": "眾達-KY" },
+        { "code": "6830", "name": "汎銓" }
+      ],
+      "leading_stocks": ["2330", "2345"],
+      "following_stocks": ["3081", "4977", "6830"],
+      "intl_indicators": ["NVDA", "^SOX"],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 1.1,
+      "verified": true,
+      "reliability_note": "跟光通訊族群成分股有重疊（台積電/智邦），族群同步性計算時避免重複計權",
+      "allow_manual_edit": true
+    },
+    {
+      "id": "auto_electronics",
+      "name": "車用電子",
+      "representative_stocks": [
+        { "code": "3665", "name": "貿聯-KY" },
+        { "code": "2231", "name": "為升" },
+        { "code": "3552", "name": "同致" }
+      ],
+      "leading_stocks": ["3665"],
+      "following_stocks": ["2231", "3552"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 2,
+      "weight": 0.7,
+      "verified": true,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "tourism",
+      "name": "觀光",
+      "representative_stocks": [
+        { "code": "2731", "name": "雄獅" },
+        { "code": "5706", "name": "鳳凰" }
+      ],
+      "leading_stocks": ["2731"],
+      "following_stocks": ["5706"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.4,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "domestic_consumption",
+      "name": "內需消費",
+      "representative_stocks": [
+        { "code": "1216", "name": "統一" },
+        { "code": "2912", "name": "統一超" }
+      ],
+      "leading_stocks": ["1216"],
+      "following_stocks": ["2912"],
+      "intl_indicators": [],
+      "sync_method": "pct_above_open_and_vwap",
+      "min_sync_count": 1,
+      "weight": 0.4,
+      "verified": false,
+      "allow_manual_edit": true
+    },
+    {
+      "id": "etf_weighted",
+      "name": "ETF 權值影響族群",
+      "representative_stocks": [
+        { "code": "0050", "name": "元大台灣50" },
+        { "code": "0056", "name": "元大高股息" }
+      ],
+      "leading_stocks": ["0050"],
+      "following_stocks": ["0056"],
+      "intl_indicators": [],
+      "sync_method": "not_applicable_index_fund",
+      "min_sync_count": 0,
+      "weight": 0.3,
+      "verified": false,
+      "reliability_note": "這是 ETF／指數成分權值觀察用，不套用一般族群同步性演算法，用途待 Phase 1 設計換股/調整日曆偵測時再定義",
+      "allow_manual_edit": true
+    }
+  ]
+}
