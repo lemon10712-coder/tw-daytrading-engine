@@ -1,0 +1,26 @@
+name: Health check
+
+# 呼應 daily-trading-site 的教訓：「有沒有跑」不能只在 GitHub 後台顯示紅叉等人發現，
+# 一定要搭配主動通知才算真正閉環。這支獨立於 run-engine.yml，用意是就算 run-engine
+# 完全沒被觸發（例如 cron-job.org 排程掛了），這支也要能發現並示警。
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run health check
+        run: node scripts/check-health.mjs
+
+      - name: Notify LINE on failure
+        if: failure()
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        run: node scripts/notify-line.js "⚠️ 台股當沖決策系統健檢失敗，盤中資料可能沒有正常更新。請查 https://github.com/lemon10712-coder/tw-daytrading-engine/actions"

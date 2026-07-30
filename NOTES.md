@@ -87,3 +87,26 @@
 gh repo edit lemon10712-coder/tw-daytrading-engine --visibility public --accept-visibility-change-consequences
 ```
 **下一步（Task 6 之後，需要回頭確認）**：使用者切換可見度後，要回來執行 `gh api repos/lemon10712-coder/tw-daytrading-engine/pages -X POST -f "source[branch]=master" -f "source[path]=/"` 啟用 Pages，並實際打開網址確認能正常載入（不能只憑 API 回傳成功就假設網站真的能看）。
+
+## 2026-07-31：Task 6 完成大部分，卡在兩個需要外部存取的環節
+
+**已完成**：
+- `scripts/notify-line.js`：沿用 daily-trading-site 已驗證的寫法（Node `fetch`，避免 bash curl 中文編碼問題），呼叫同一個 LINE Messaging API channel
+- `scripts/check-health.mjs`：判斷「現在是不是盤中時段」＋「最新資料是不是在15分鐘內」，只在盤中且資料過期時才回報失敗，非交易日/盤前盤後不誤報
+- `scripts/build-summary-message.mjs`：組 LINE 摘要訊息文字（盤前/盤中/收盤三種標籤），獨立成檔案方便本機直接測試訊息長相
+- `.github/workflows/run-engine.yml`：只用 `workflow_dispatch`（不用原生 `schedule`，daily-trading-site 已驗證原生排程不可靠），跑 `run-engine.mjs` 後 commit+push `data/`，含跟 daily-trading-site 完全同款的 push race condition 重試邏輯（rebase 失敗時偵測真衝突用 `--theirs` 覆蓋）。支援 `notify`／`label` 兩個輸入參數決定要不要推播跟推播文字。
+- `.github/workflows/health-check.yml`：跑健檢，失敗才推播 LINE 警告，呼應「壞掉要主動通知不能只在後台顯示紅叉」的教訓
+- 兩個 workflow YAML 都用 Python pyyaml 驗證過語法正確（`on:` 被解析成布林值 `True` 是 pyyaml 已知的 YAML 1.1 特性，GitHub Actions 自己的解析器不受影響，不是錯誤）
+
+**卡住的兩個環節，都需要外部存取，目前這台機器的 Playwright 瀏覽器被其他 session 佔用，無法處理**：
+
+1. **cron-job.org 排程註冊**：要幫這個 repo 新增 4 個外部觸發排程（盤前08:00、盤中每5分鐘09:00-13:30、收盤13:30、健檢），比照 daily-trading-site 已有的 4 個排程模式。但這需要：
+   - 一組**只限這個 repo**的 GitHub fine-grained PAT（現有 `.secrets/cron-job-org.md` 裡那組 token 是**限定 daily-trading-report 這個 repo**，不能跨 repo 用）——建立新 PAT 需要登入 github.com/settings/personal-access-tokens/new，只能靠使用者本人或 Playwright，兩者現在都用不了
+   - 到 console.cron-job.org 網頁後台新增排程規則——雖然 cron-job.org 有 REST API，但取得 API key 一樣要先登入網頁 Settings 頁面才能生成，同樣卡在需要瀏覽器
+   - **等 Playwright 空出來後回來做**，或使用者可以自己先去 console.cron-job.org（帳密見 `.secrets/cron-job-org.md`）Settings 頁面生成一組 API key 給我，我就能直接用 API 建排程不用等瀏覽器
+
+2. **LINE_CHANNEL_ACCESS_TOKEN secret**：GitHub secret 沒辦法跨 repo 共用，這個新 repo 要另外設定一份。使用者已經有這個 LINE channel（Provider「Charles」，帳號 `@595fudwy`），需要使用者去 LINE Developers Console 把同一個 channel 的 access token 貼給我，我再用 `gh secret set LINE_CHANNEL_ACCESS_TOKEN --repo lemon10712-coder/tw-daytrading-engine` 設定進去。
+
+**這兩項都不影響先驗證 workflow 邏輯本身對不對**——可以先用 `gh workflow run` 手動觸發 `run-engine.yml`（不帶 notify，這樣就算沒設 LINE token 也不會因為推播失敗而整個 workflow 失敗，`notify-line.js` 設計成 token 沒設就跳過不報錯）驗證 commit/push 邏輯在真實 GitHub Actions 環境能不能跑通，這步不需要等使用者提供東西。
+
+**下一步（Task 7 之前）**：手動觸發 `run-engine.yml` 驗證 workflow 本身正確，再跟使用者要 LINE token 跟（可選）cron-job.org API key，完成排程串接。

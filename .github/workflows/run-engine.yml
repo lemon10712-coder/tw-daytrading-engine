@@ -1,0 +1,78 @@
+name: Run trading engine
+
+# 只用 workflow_dispatch，不用原生 schedule——daily-trading-site 踩過的坑：GitHub 原生
+# schedule 排程實測會晚跑數小時甚至完全不觸發，改成外部服務（cron-job.org）定時打
+# API 觸發這個 workflow_dispatch，才是已驗證可靠的做法。
+on:
+  workflow_dispatch:
+    inputs:
+      notify:
+        description: '完成後是否推播 LINE 摘要（盤前/收盤設 true，盤中5分鐘更新設 false 避免洗版）'
+        type: choice
+        options: ['true', 'false']
+        default: 'false'
+      label:
+        description: '這次執行的標籤，決定 LINE 訊息文字'
+        type: choice
+        options: ['premarket', 'update', 'close']
+        default: 'update'
+
+concurrency:
+  group: run-engine
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run engine
+        run: node scripts/run-engine.mjs
+
+      - name: Commit and push data
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No data changes to commit"
+            exit 0
+          fi
+          git commit -m "Update market data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          # 重試迴圈：處理跟其他同時觸發的 run 互撞的 push race condition。
+          # fast-forward 沒跟上用 rebase 解決；真的內容衝突（UU）用這次剛抓到的新資料
+          # （--theirs，rebase 語境下跟 merge 語境意義相反）覆蓋掉，避免卡在衝突狀態。
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Push succeeded on attempt $i"
+              exit 0
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            if git pull --rebase; then
+              continue
+            fi
+            if git status --short | grep -q '^UU'; then
+              echo "Real conflict detected, resolving with --theirs"
+              git status --short | grep '^UU' | awk '{print $2}' | xargs -r git checkout --theirs
+              git add data/
+              git rebase --continue
+            else
+              git rebase --abort || true
+              sleep 3
+            fi
+          done
+          echo "Push failed after 5 attempts"
+          exit 1
+
+      - name: Notify LINE
+        if: ${{ github.event.inputs.notify == 'true' }}
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        run: node scripts/notify-line.js "$(node scripts/build-summary-message.mjs ${{ github.event.inputs.label }})"
