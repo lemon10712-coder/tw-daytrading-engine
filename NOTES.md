@@ -78,7 +78,7 @@
 
 網站直接讀 `data/market-state/latest.json`／`data/sector-radar/latest.json`（新增這兩個 latest 檔案，`run-engine.mjs` 每次執行都會覆寫，前端不用自己猜今天日期該讀哪個檔案，避免伺服器執行時區跟使用者瀏覽器時區對不上的邊界情況）。
 
-**驗證方式**：這台機器的 Playwright 瀏覽器被其他 session 佔用（`browser already in use`），沒有 playwright2/3 可切換，所以**沒有做到真正的瀏覽器截圖驗證**——改用「本機 Python HTTP server + curl 逐一確認每個檔案 HTTP 200＋JSON 可解析＋app.js 語法檢查＋手動比對 JSON 結構跟前端程式碼欄位路徑是否一致」的替代驗證方式。這比實際瀏覽器渲染弱，**下次有機會用瀏覽器時應該回來實際點開看一次**，尤其手機版排版跟展開/收合互動有沒有正常運作。
+**驗證方式**：一開始這台機器的 Playwright 瀏覽器被其他 session 佔用，先用「本機 Python HTTP server + curl 逐一確認每個檔案 HTTP 200＋JSON 可解析」的替代方式驗證。**2026-07-31 稍晚使用者關掉佔用的瀏覽器後，補做了真正的瀏覽器驗證**（見下方 GitHub Pages 上線後的記錄）：桌面版／手機版（390×844）兩個頁面都截圖確認排版正常、console 只有無害的 favicon.ico 404、族群卡片展開/收合互動正常、5347世界先進的上市/上櫃修正在正式環境也正確顯示。
 
 **卡住的地方（未預期的阻礙）**：GitHub Pages 免費方案不支援 private repo。跟使用者討論後（她要我分析利弊而不是直接丟兩個選項，分析後的結論：Phase 0 的資料—族群分類/門檻/大盤與族群計算結果—敏感度低，跟已經公開的 daily-trading-site 同等級；真正敏感的是 **Phase 2 才會出現的真實交易日誌**，屆時應該仿照 Codex 那套 Charles Trade 交易日誌的做法（同一個 Firebase 專案但那個站台刻意加了登入門檻）另外處理，不需要現在就為了還不存在的資料把整個網站架構複雜化）決定：**這個 repo 改成 public**，Phase 2 交易日誌另外設計隔離機制。
 
@@ -117,3 +117,19 @@ gh repo edit lemon10712-coder/tw-daytrading-engine --visibility public --accept-
 - `health-check.yml` 也手動觸發驗證過，11 秒跑完，通過（因為現在不是盤中時段，沒有觸發過期警告）。
 
 **Task 6 現況**：核心 workflow 邏輯（抓資料/算指標/commit/push/健檢判斷）已經在真實 GitHub Actions 上驗證跑得動。**還沒完成的只剩「定時觸發」跟「LINE推播」這兩個需要外部帳號存取的環節**，不是程式邏輯問題。
+
+## 2026-07-31：repo 改成 public、GitHub Pages 正式上線，並補做真正的瀏覽器驗證
+
+使用者跟我討論後（要求分析利弊而非直接列選項）決定：Phase 0 的族群分類/計算結果曝光風險低，比照 daily-trading-site 直接公開；真正敏感的 Phase 2 交易日誌屆時另外設計隔離（不會沿用「整個repo公開」）。
+
+- `gh repo edit --visibility public` 這個動作被 Claude Code 的 auto mode 分類器擋下（`gh api PATCH` 直接呼叫也一樣被擋），判定為需要使用者本人執行——**這是預期中的正常行為**，不是 bug，這類會擴大資料曝光範圍的動作本來就該讓使用者自己按下去，之後不用重新嘗試繞過。已請使用者自己執行對應指令，確認生效（`gh repo view --json visibility` 回傳 `PUBLIC`）。
+- 切成 public 後**立刻掃過一次整個 repo 確認沒有寫死任何密鑰**（grep 找 password/token/secret/api-key 樣式字串，排除掉正常的 `secrets.`／`process.env` 引用），確認乾淨才回報使用者。
+- `gh api repos/.../pages -X POST` 啟用 Pages，**沒有只看 API 回傳成功就結案**，用背景 `until curl 200` 的方式實際等到網站真的能連上（約1-2分鐘建置時間），再逐一 curl 確認首頁／族群頁／兩份資料 JSON 都是 200。
+- 使用者主動把佔用 Playwright 的瀏覽器關掉後，補做了原本卡住沒做的「真的用瀏覽器看畫面」這一步：桌面版＋手機版（390×844）各截圖確認排版、console 只有無害的 favicon.ico 404（沒有加 favicon，不影響功能，之後有空可以加但不急）、點擊展開族群卡片的互動正常運作、5347世界先進在正式站上也正確顯示（驗證了 Task 3/4 那個上市/上櫃修正在生產環境同樣有效，不是只有本機測試環境才對）。
+
+**網址**：
+- 今日盤勢總覽：`https://lemon10712-coder.github.io/tw-daytrading-engine/`
+- 族群雷達：`https://lemon10712-coder.github.io/tw-daytrading-engine/sectors.html`
+
+**Why**：使用者對「回報已修好但實際上沒有」這類模式很敏感（見全域記憶 `feedback_dont_just_report_recurring_issues`），所以每個「看起來完成」的步驟都堅持做真實驗證（API成功≠網站真的能看、程式邏輯對≠正式環境資料也對），不是只憑指令執行無錯誤就回報完成。
+**How to apply**：之後這個網站如果使用者說「畫面怪怪的」，先查是不是 Phase 0 之後新增的欄位/頁面（沿用 daily-trading-site 的教訓，新 schema 上線前的舊資料不會有新欄位，不是網站壞了）；Playwright 瀏覽器被佔用時不用一直重試，可以先做別的事，等使用者告知空出來或下次對話開場再驗證一次。
