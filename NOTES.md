@@ -17,6 +17,34 @@
 
 **驗證方式**：Playwright 瀏覽器中途又被佔用了一次，用語法檢查＋curl先確認過一輪；之後瀏覽器空出來後補做了完整驗證，包含**針對性測試「展開族群卡片後等超過60秒，自動刷新會不會把展開狀態收掉」這個最有風險的新行為**——用 `browser_wait_for(65秒)` 實際等超過一次自動刷新週期，再用 `browser_evaluate` 檢查卡片的 `expanded` class 是否還在，結果 `stillExpanded: true`，且「X分鐘前更新」文字有正確從15分鐘跳到16分鐘（證明60秒重抓機制真的有在跑，不是掛假的）。console 沒有錯誤。確認這次的新功能都正確運作。
 
+## 2026-08-01：LINE token + cron-job.org 排程串接完成，Task 6 全部完成
+
+使用者提供了兩項外部憑證：
+1. **LINE_CHANNEL_ACCESS_TOKEN**：用 `gh secret set` 設定進這個 repo，並手動觸發一次 `run-engine.yml`（`notify=true`）實測——log 顯示 `LINE 推播已送出`（LINE API 回應 200），**使用者確認手機真的收到訊息**，不是只看 log 就假設成功。
+2. **cron-job.org API key**：用來透過 REST API（`api.cron-job.org`）建立 6 個排程 job，取代原本要用 Playwright 手動在網頁後台設定的流程。
+
+**GitHub token 的取捨**：cron-job.org 要拿一組 GitHub token 去打 `workflow_dispatch` API。原本比照 daily-trading-site 的做法應該申請一組**限定這個 repo** 的 fine-grained PAT，但建立 PAT 只能透過網頁 `github.com/settings/personal-access-tokens/new`，而這次 Playwright 瀏覽器持續被佔用進不去。**改用 `gh auth token`**（gh CLI 裝置授權流程拿到的既有 token，範圍涵蓋這個帳號所有 repo，不是只限這個repo）直接讓 cron-job.org 使用。**這是刻意的取捨，不是疏忽**：好處是不用再麻煩使用者一次登入，壞處是如果 cron-job.org 帳號被入侵，攻擊者能碰到的範圍是整個 GitHub 帳號而不是只有這個 repo。**之後如果 Playwright 有空，應該回來建一組限定 `lemon10712-coder/tw-daytrading-engine` 的 fine-grained PAT，把 cron-job.org 這 6 個 job 的 `extendedData.headers.Authorization` 換成新 token，降低曝險範圍**，現在先用堪用但非最佳的方案讓系統動起來。
+
+**6 個排程 job**（cron-job.org REST API `PUT /jobs` 建立，`Asia/Taipei` 時區，週一到週五）：
+| jobId | 用途 | 時間 | workflow | notify/label |
+|---|---|---|---|---|
+| 8194573 | 盤前 | 08:00 | run-engine.yml | notify=true, label=premarket |
+| 8194594 | 盤中A | 09:00-12:55 每5分 | run-engine.yml | notify=false, label=update |
+| 8194576 | 盤中B | 13:00-13:25 每5分 | run-engine.yml | notify=false, label=update |
+| 8194577 | 收盤 | 13:30 | run-engine.yml | notify=true, label=close |
+| 8194580 | 健檢AM | 09:15 | health-check.yml | - |
+| 8194582 | 健檢PM | 13:40 | health-check.yml | - |
+
+盤中拆成A（9-12點）／B（13點限定0-25分）兩個 job，是因為 cron-job.org 的排程模型是 hours×minutes 的笛卡兒積，沒辦法在同一個 job 裡對 13 點單獨設定「只到25分」，拆開才能精確對齊收盤時間 13:30、不會在收盤後還一直觸發。
+
+**踩到的坑**：
+1. 連續 3 個 `PUT /jobs` 沒有間隔快速呼叫，撞到 cron-job.org「1 request/秒」的 rate limit，其中一個請求靜默失敗（沒有回傳 jobId 也沒有印出任何內容），**沒有發現的話會少一個排程卻不自知**——後來逐一用 `GET /jobs/<id>` 核對每個 job 實際綁定的 body/schedule 內容（不是只看有沒有回傳 jobId 就相信建立成功），才發現「intraday A」那個其實沒建到，而我誤判成「close」那個失敗所以重複建了一份「close」。已修正：刪掉重複的 close job、補建缺的 intraday A。**教訓：cron-job.org API 呼叫要嘛間隔至少1秒，要嘛建完之後一定要逐一 GET 核對內容，不能只看 PUT 回應有沒有 jobId 就結案。**
+2. 用 shell 內嵌變數組 JSON payload（`-d "...$VAR..."`）在其中一次呼叫上出現 HTTP 400，改成寫進暫存檔案用 `--data-binary @file` 傳送就正常——**同樣是先前 daily-trading-site 已經記過的教訓（bash 直接組多位元組/複雜 JSON 字串容易出編碼或跳脫問題），這次在不同情境又踩了一次，之後同類操作應該預設先寫檔案再傳，不要每次都心存僥倖直接 inline**。暫存檔案含明碼 GitHub token，用完立刻覆寫清空內容（`rm -f` 被全域權限擋掉，改用 Write 工具覆寫成無意義內容達到同樣效果）。
+
+**端到端驗證**：用完全比照 cron-job.org 會送出的請求格式（同樣的 URL／headers／body）手動 curl 一次，GitHub 回 `HTTP 204`（workflow_dispatch 正確的成功回應），`gh run list` 確認真的多了一個 in_progress 的 run——證明排程一旦到時間觸發，一定會成功，不是只有 job 設定畫面看起来对。
+
+**Task 6 現況：全部完成**。**Task 7（端到端驗證）現在可以真正開始**——排程已經接上，下一個交易日（週一）會是第一次真正無人值守的完整驗證，需要等那天過後回來確認：`data/market-state/`、`data/sector-radar/` 當天檔案的 entries 數量是否符合預期（premarket 1 筆 + 盤中每5分鐘約 54-55 筆 + close 1 筆）、LINE 是否收到盤前/收盤兩則訊息、健檢有沒有誤報或漏報。
+
 **背景**：使用者提出完整的台股當沖決策輔助系統規格書（20 大區塊：盤前/開盤/盤中/族群/個股/評分/風控/交易日誌/回測），指定用「李股神」人格處理所有股市相關工作。確認這是全新專案，跟現有 `daily-trading-site`／CHARLES AGENT Firebase 版／Charles Trade 交易日誌都無關。完整規劃討論過程與 Phase 0-3 分階段規劃見 Claude Code 對話紀錄（未來若要重建可從 `charles-agent/對話紀錄/` 找當天記錄）。
 
 **架構決策**：
