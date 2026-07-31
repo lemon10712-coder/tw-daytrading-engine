@@ -185,7 +185,7 @@ async function main() {
       };
     });
     const sync = calcSectorSync(signals, thresholds.sector_sync);
-    return { id: sector.id, name: sector.name, ...sync, stocks: signals };
+    return { id: sector.id, name: sector.name, verified: sector.verified === true, ...sync, stocks: signals };
   });
 
   const marketStateEntry = {

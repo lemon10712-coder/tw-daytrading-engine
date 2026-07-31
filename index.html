@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>台股當沖決策輔助系統 — 今日盤勢總覽</title>
+<title>台股當沖決策輔助系統</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%88%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -11,30 +12,42 @@
   <header class="top">
     <h1>台股當沖決策輔助系統 <span class="badge-phase">Phase 0 · MVP</span></h1>
     <nav class="tabs">
-      <a href="index.html" class="active">盤勢總覽</a>
-      <a href="sectors.html">族群雷達</a>
+      <a href="#market">盤勢總覽</a>
+      <a href="#sectors">族群雷達</a>
     </nav>
   </header>
 
   <div class="meta-line" id="meta-line">資料載入中…</div>
 
-  <div id="content">
+  <div id="market-content">
     <div class="loading">載入中…</div>
   </div>
 
   <div class="warning-box" id="data-warnings" style="display:none;"></div>
 
+  <h2 id="sectors" class="section-title" style="font-size:16px; color:var(--text); margin-top:36px;">族群雷達</h2>
+  <div class="meta-line">點卡片可展開看族群內個股明細。分類依「上漲家數比例＋站上VWAP比例」計算，門檻可調整（見 config/thresholds.json）。</div>
+  <div id="sectors-content">
+    <div class="loading">載入中…</div>
+  </div>
+
   <footer class="page-footer">
     本系統為決策輔助工具，不構成投資建議，不保證獲利。所有判斷邏輯皆為規則式計算，可在
     <a href="https://github.com/lemon10712-coder/tw-daytrading-engine" target="_blank" rel="noopener">GitHub repo</a>
     追蹤原始碼與資料來源。目前為 Phase 0（大盤方向＋族群雷達），尚未包含個股判斷、進場建議、交易日誌、回測。
+    族群成分股目前是每族群 3-6 檔種子代表股，尚未涵蓋族群全部成分股；標「⚠尚待複查」的族群代號還沒逐一查證過。
+    頁面每 60 秒自動重新讀取最新資料，不用手動重新整理。
   </footer>
 </div>
 
 <script src="assets/app.js"></script>
 <script>
-async function main() {
-  const contentEl = document.getElementById('content');
+const SYNC_ORDER = ['強同步偏多', '弱同步偏多', '中性分化', '弱同步偏空', '強同步偏空', '資料不足'];
+const expandedSectors = new Set();
+let marketEntry = null;
+
+async function loadMarket() {
+  const contentEl = document.getElementById('market-content');
   const metaEl = document.getElementById('meta-line');
   const warningsEl = document.getElementById('data-warnings');
 
@@ -47,13 +60,21 @@ async function main() {
   }
 
   const entry = data.entry;
-  metaEl.textContent = `資料時間：${entry.generated_at_taipei}（台北時間）　交易日曆：${entry.trading_day.isTradingDay === true ? '交易日' : entry.trading_day.isTradingDay === false ? `休市（${entry.trading_day.reason}）` : '無法驗證'}`;
+  marketEntry = entry;
+  metaEl.textContent = `${formatRelativeTime(entry.generated_at_taipei)}（${entry.generated_at_taipei} 台北時間）　交易日曆：${entry.trading_day.isTradingDay === true ? '交易日' : entry.trading_day.isTradingDay === false ? `休市（${entry.trading_day.reason}）` : '無法驗證'}`;
 
   const state = entry.market_state.state;
   const warnings = [];
   if (entry.trading_day.isTradingDay === null) warnings.push(entry.trading_day.reason);
   if (entry.intl.direction === '資料不足') warnings.push('國際指標資料不足');
   if (entry.taiwan.direction === '資料不足') warnings.push('台股加權／櫃買指數資料不足');
+
+  // 盤中判斷交給 GitHub Actions 的健檢排程（15分鐘門檻），這裡是給「非盤中打開網站」的人看的
+  // 保守提醒：不管什麼時候看，資料超過30分鐘沒更新就老實講，避免誤以為是最新狀態
+  const ageMinutes = Math.round((Date.now() - parseTaipeiTimestamp(entry.generated_at_taipei).getTime()) / 60000);
+  if (ageMinutes > 30) {
+    warnings.push(`最新資料是 ${formatRelativeTime(entry.generated_at_taipei)}的，不是即時資料，判讀時請注意`);
+  }
 
   const intlRows = entry.intl.signals.map((s) => `
     <div class="mini-card">
@@ -70,7 +91,7 @@ async function main() {
   `).join('');
 
   contentEl.innerHTML = `
-    <div class="state-banner state-${state}">
+    <div class="state-banner state-${state}" id="market">
       <div class="state-value">${state}</div>
       <div class="state-reason">${escapeHtml(entry.market_state.reason)}</div>
     </div>
@@ -86,7 +107,77 @@ async function main() {
 
   renderDataWarnings(warningsEl, warnings);
 }
-main();
+
+async function loadSectors() {
+  const contentEl = document.getElementById('sectors-content');
+
+  let data;
+  try {
+    data = await fetchJson('data/sector-radar/latest.json');
+  } catch (err) {
+    contentEl.innerHTML = `<div class="error-box">讀取族群資料失敗：${escapeHtml(err.message)}</div>`;
+    return;
+  }
+
+  const entry = data.entry;
+  const sorted = [...entry.sectors].sort((a, b) => SYNC_ORDER.indexOf(a.classification) - SYNC_ORDER.indexOf(b.classification));
+
+  contentEl.innerHTML = `<div class="sector-grid">${sorted.map(renderSectorCard).join('')}</div>`;
+
+  contentEl.querySelectorAll('.sector-card').forEach((card) => {
+    const id = card.dataset.sectorId;
+    if (expandedSectors.has(id)) card.classList.add('expanded');
+    card.addEventListener('click', () => {
+      card.classList.toggle('expanded');
+      if (card.classList.contains('expanded')) expandedSectors.add(id);
+      else expandedSectors.delete(id);
+    });
+  });
+}
+
+function renderSectorCard(sector) {
+  const summary = sector.totalCount > 0
+    ? `${sector.upCount}/${sector.totalCount} 檔上漲　平均 ${formatPct(sector.avgReturn)}`
+    : sector.reason;
+  const rows = sector.stocks.map((s) => `
+    <tr>
+      <td>${escapeHtml(s.code)}</td>
+      <td>${escapeHtml(s.name)}</td>
+      <td>${formatPrice(s.price)}</td>
+      <td class="pct ${pctClass(s.pctChange)}">${formatPct(s.pctChange)}</td>
+      <td>${s.vwap != null ? formatPrice(s.vwap) : '—'}</td>
+      <td>${s.aboveVwap === true ? '站上' : s.aboveVwap === false ? '跌破' : '—'}</td>
+    </tr>
+  `).join('');
+
+  return `
+    <div class="sector-card" data-sector-id="${escapeHtml(sector.id)}">
+      <div class="head">
+        <div class="name">${escapeHtml(sector.name)}${sector.verified === false ? ' <span title="部分成分股代號尚待複查">⚠</span>' : ''}</div>
+        <div class="sync-badge sync-${sector.classification}">${sector.classification}</div>
+      </div>
+      <div class="summary">${escapeHtml(summary)}</div>
+      <table class="stock-table">
+        <thead><tr><th>代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>VWAP</th><th>相對VWAP</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function refreshFreshnessLabel() {
+  if (!marketEntry) return;
+  const metaEl = document.getElementById('meta-line');
+  metaEl.textContent = `${formatRelativeTime(marketEntry.generated_at_taipei)}（${marketEntry.generated_at_taipei} 台北時間）　交易日曆：${marketEntry.trading_day.isTradingDay === true ? '交易日' : marketEntry.trading_day.isTradingDay === false ? `休市（${marketEntry.trading_day.reason}）` : '無法驗證'}`;
+}
+
+async function loadAll() {
+  await Promise.all([loadMarket(), loadSectors()]);
+}
+
+loadAll();
+setInterval(loadAll, 60000); // 每60秒重抓一次最新資料，盤中資料5分鐘才更新一次，60秒頻率足夠不會浪費
+setInterval(refreshFreshnessLabel, 10000); // 「X分鐘前更新」文字每10秒自己跳，不用重新抓資料
 </script>
 </body>
 </html>
