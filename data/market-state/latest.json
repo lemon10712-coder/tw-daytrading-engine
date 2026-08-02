@@ -1,92 +1,92 @@
 {
   "schema_version": 1,
-  "date": "2026-08-01",
+  "date": "2026-08-03",
   "entry": {
-    "generated_at_taipei": "2026-08-01 03:10:24",
+    "generated_at_taipei": "2026-08-03 03:11:37",
     "trading_day": {
-      "date": "2026-08-01",
-      "isTradingDay": false,
-      "reason": "週末",
-      "source": "weekday_calc"
+      "date": "2026-08-03",
+      "isTradingDay": true,
+      "reason": null,
+      "source": "twse_openapi"
     },
     "market_state": {
       "state": "震盪",
       "reason": "台股本身處於平盤區間，尚未確認方向",
       "intl": {
         "direction": "中性",
-        "reason": "11 項國際指標中 6 項上漲、5 項下跌，平均漲跌幅 -1.49%",
-        "avgReturn": -0.014906705620829953,
+        "reason": "11 項國際指標中 5 項上漲、5 項下跌，平均漲跌幅 -1.39%",
+        "avgReturn": -0.013864692008689587,
         "signals": [
           {
             "name": "道瓊工業指數",
             "symbol": "^DJI",
-            "price": 52529.02,
+            "price": 52485.03,
             "previousClose": 51947.25,
-            "pctChange": 0.01119924538835062,
+            "pctChange": 0.010352424815558068,
             "state": "up"
           },
           {
             "name": "S&P 500",
             "symbol": "^GSPC",
-            "price": 7485.74,
+            "price": 7489.72,
             "previousClose": 7411.98,
-            "pctChange": 0.009951456965615156,
+            "pctChange": 0.010488425494942066,
             "state": "up"
           },
           {
             "name": "Nasdaq",
             "symbol": "^IXIC",
-            "price": 25335.9,
+            "price": 25373.854,
             "previousClose": 24975.82,
-            "pctChange": 0.014417144261930208,
+            "pctChange": 0.015936774047859075,
             "state": "up"
           },
           {
             "name": "費城半導體指數",
             "symbol": "^SOX",
-            "price": 11408.191,
+            "price": 11311.075,
             "previousClose": 11818.88,
-            "pctChange": -0.03474855485460539,
+            "pctChange": -0.04296557711052135,
             "state": "down"
           },
           {
             "name": "NVIDIA",
             "symbol": "NVDA",
-            "price": 198.35,
+            "price": 200.75,
             "previousClose": 206.84,
-            "pctChange": -0.041046219299942024,
+            "pctChange": -0.029443047766389497,
             "state": "down"
           },
           {
             "name": "AMD",
             "symbol": "AMD",
-            "price": 486.13,
+            "price": 476.15,
             "previousClose": 521.95,
-            "pctChange": -0.06862726314781119,
+            "pctChange": -0.0877478685697865,
             "state": "down"
           },
           {
             "name": "Micron",
             "symbol": "MU",
-            "price": 837.82,
+            "price": 823.03,
             "previousClose": 920.95,
-            "pctChange": -0.0902654867256637,
+            "pctChange": -0.10632499049894138,
             "state": "down"
           },
           {
             "name": "台積電ADR",
             "symbol": "TSM",
-            "price": 405.432,
+            "price": 404.25,
             "previousClose": 403.41,
-            "pctChange": 0.0050122703948835955,
-            "state": "up"
+            "pctChange": 0.002082248828734972,
+            "state": "flat"
           },
           {
             "name": "美元指數",
             "symbol": "DX-Y.NYB",
-            "price": 99.898,
-            "previousClose": 101.51,
-            "pctChange": -0.01588020884641916,
+            "price": 99.803,
+            "previousClose": 101.38,
+            "pctChange": -0.01555533635825605,
             "state": "down"
           },
           {
@@ -100,9 +100,9 @@
           {
             "name": "原油",
             "symbol": "CL=F",
-            "price": 84.56,
-            "previousClose": 82.61,
-            "pctChange": 0.023604890449098206,
+            "price": 84.67,
+            "previousClose": 79.26,
+            "pctChange": 0.06825637143578092,
             "state": "up"
           }
         ]
@@ -128,79 +128,79 @@
     },
     "intl": {
       "direction": "中性",
-      "reason": "11 項國際指標中 6 項上漲、5 項下跌，平均漲跌幅 -1.49%",
-      "avgReturn": -0.014906705620829953,
+      "reason": "11 項國際指標中 5 項上漲、5 項下跌，平均漲跌幅 -1.39%",
+      "avgReturn": -0.013864692008689587,
       "signals": [
         {
           "name": "道瓊工業指數",
           "symbol": "^DJI",
-          "price": 52529.02,
+          "price": 52485.03,
           "previousClose": 51947.25,
-          "pctChange": 0.01119924538835062,
+          "pctChange": 0.010352424815558068,
           "state": "up"
         },
         {
           "name": "S&P 500",
           "symbol": "^GSPC",
-          "price": 7485.74,
+          "price": 7489.72,
           "previousClose": 7411.98,
-          "pctChange": 0.009951456965615156,
+          "pctChange": 0.010488425494942066,
           "state": "up"
         },
         {
           "name": "Nasdaq",
           "symbol": "^IXIC",
-          "price": 25335.9,
+          "price": 25373.854,
           "previousClose": 24975.82,
-          "pctChange": 0.014417144261930208,
+          "pctChange": 0.015936774047859075,
           "state": "up"
         },
         {
           "name": "費城半導體指數",
           "symbol": "^SOX",
-          "price": 11408.191,
+          "price": 11311.075,
           "previousClose": 11818.88,
-          "pctChange": -0.03474855485460539,
+          "pctChange": -0.04296557711052135,
           "state": "down"
         },
         {
           "name": "NVIDIA",
           "symbol": "NVDA",
-          "price": 198.35,
+          "price": 200.75,
           "previousClose": 206.84,
-          "pctChange": -0.041046219299942024,
+          "pctChange": -0.029443047766389497,
           "state": "down"
         },
         {
           "name": "AMD",
           "symbol": "AMD",
-          "price": 486.13,
+          "price": 476.15,
           "previousClose": 521.95,
-          "pctChange": -0.06862726314781119,
+          "pctChange": -0.0877478685697865,
           "state": "down"
         },
         {
           "name": "Micron",
           "symbol": "MU",
-          "price": 837.82,
+          "price": 823.03,
           "previousClose": 920.95,
-          "pctChange": -0.0902654867256637,
+          "pctChange": -0.10632499049894138,
           "state": "down"
         },
         {
           "name": "台積電ADR",
           "symbol": "TSM",
-          "price": 405.432,
+          "price": 404.25,
           "previousClose": 403.41,
-          "pctChange": 0.0050122703948835955,
-          "state": "up"
+          "pctChange": 0.002082248828734972,
+          "state": "flat"
         },
         {
           "name": "美元指數",
           "symbol": "DX-Y.NYB",
-          "price": 99.898,
-          "previousClose": 101.51,
-          "pctChange": -0.01588020884641916,
+          "price": 99.803,
+          "previousClose": 101.38,
+          "pctChange": -0.01555533635825605,
           "state": "down"
         },
         {
@@ -214,9 +214,9 @@
         {
           "name": "原油",
           "symbol": "CL=F",
-          "price": 84.56,
-          "previousClose": 82.61,
-          "pctChange": 0.023604890449098206,
+          "price": 84.67,
+          "previousClose": 79.26,
+          "pctChange": 0.06825637143578092,
           "state": "up"
         }
       ]
