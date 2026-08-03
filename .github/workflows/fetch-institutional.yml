@@ -1,0 +1,62 @@
+name: Fetch institutional investors data
+
+# 三大法人買賣超是「盤後結算」資料，通常收盤後下午才會有當天數字，跟 run-engine.yml
+# 那組每5分鐘一次的盤中資料是完全不同的更新頻率，所以獨立成自己的 workflow／排程／
+# 資料目錄（data/institutional/），不要塞進 run-engine 那個 pipeline——詳見 NOTES.md。
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-institutional
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+
+      - name: Fetch institutional investors data
+        run: node scripts/fetch-institutional.mjs
+
+      - name: Commit and push data
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/institutional/
+          if git diff --staged --quiet; then
+            echo "No data changes to commit"
+            exit 0
+          fi
+          git commit -m "Update institutional investors data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          # 重試邏輯跟 run-engine.yml 一致：處理跟其他同時觸發的 workflow 互撞的 push race condition
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Push succeeded on attempt $i"
+              exit 0
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            if git pull --rebase; then
+              continue
+            fi
+            if git status --short | grep -q '^UU'; then
+              echo "Real conflict detected, resolving with --theirs"
+              git status --short | grep '^UU' | awk '{print $2}' | xargs -r git checkout --theirs
+              git add data/institutional/
+              git rebase --continue
+            else
+              git rebase --abort || true
+              sleep 3
+            fi
+          done
+          echo "Push failed after 5 attempts"
+          exit 1

@@ -14,6 +14,7 @@
     <nav class="tabs">
       <a href="#market">盤勢總覽</a>
       <a href="#sectors">族群雷達</a>
+      <a href="#institutional">三大法人</a>
     </nav>
   </header>
 
@@ -31,11 +32,18 @@
     <div class="loading">載入中…</div>
   </div>
 
+  <h2 id="institutional" class="section-title" style="font-size:16px; color:var(--text); margin-top:36px;">三大法人動向</h2>
+  <div class="meta-line" id="institutional-meta">資料載入中…</div>
+  <div id="institutional-content">
+    <div class="loading">載入中…</div>
+  </div>
+
   <footer class="page-footer">
     本系統為決策輔助工具，不構成投資建議，不保證獲利。所有判斷邏輯皆為規則式計算，可在
     <a href="https://github.com/lemon10712-coder/tw-daytrading-engine" target="_blank" rel="noopener">GitHub repo</a>
-    追蹤原始碼與資料來源。目前為 Phase 0（大盤方向＋族群雷達），尚未包含個股判斷、進場建議、交易日誌、回測。
+    追蹤原始碼與資料來源。目前為 Phase 0（大盤方向＋族群雷達＋三大法人動向），尚未包含個股判斷、進場建議、交易日誌、回測。
     族群成分股目前是每族群 3-6 檔種子代表股，尚未涵蓋族群全部成分股；標「⚠尚待複查」的族群代號還沒逐一查證過。
+    三大法人資料來自證交所官方公開資料，是盤後結算資料（收盤後下午才會有當天數字），不是盤中即時籌碼；目前只涵蓋上市股票，上櫃三大法人資料尚未串接。
     頁面每 60 秒自動重新讀取最新資料，不用手動重新整理。
   </footer>
 </div>
@@ -171,8 +179,111 @@ function refreshFreshnessLabel() {
   metaEl.textContent = `${formatRelativeTime(marketEntry.generated_at_taipei)}（${marketEntry.generated_at_taipei} 台北時間）　交易日曆：${marketEntry.trading_day.isTradingDay === true ? '交易日' : marketEntry.trading_day.isTradingDay === false ? `休市（${marketEntry.trading_day.reason}）` : '無法驗證'}`;
 }
 
+function renderTrendChart(trend) {
+  if (!trend || trend.length === 0) return '<div class="meta-line">尚無足夠歷史資料畫趨勢圖，每個交易日跑一次會逐漸累積。</div>';
+
+  const width = 640, height = 140, padding = 24;
+  const values = trend.map((t) => t.totalNet ?? 0);
+  const maxAbs = Math.max(1, ...values.map((v) => Math.abs(v)));
+  const barWidth = Math.min(36, (width - padding * 2) / trend.length - 6);
+  const midY = height / 2;
+
+  const bars = trend.map((t, i) => {
+    const x = padding + i * ((width - padding * 2) / trend.length) + 3;
+    const v = t.totalNet ?? 0;
+    const barHeight = Math.abs(v) / maxAbs * (midY - 16);
+    const y = v >= 0 ? midY - barHeight : midY;
+    const color = v > 0 ? 'var(--up)' : v < 0 ? 'var(--down)' : 'var(--flat)';
+    const label = t.date.slice(5); // MM-DD
+    return `
+      <rect x="${x}" y="${y}" width="${barWidth}" height="${Math.max(1, barHeight)}" fill="${color}" rx="2">
+        <title>${escapeHtml(t.date)}：三大法人合計 ${escapeHtml(formatTwdAmount(v))}</title>
+      </rect>
+      <text x="${x + barWidth / 2}" y="${height - 4}" font-size="9" fill="var(--text-dim)" text-anchor="middle">${escapeHtml(label)}</text>
+    `;
+  }).join('');
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" class="trend-chart" preserveAspectRatio="xMidYMid meet">
+      <line x1="${padding}" y1="${midY}" x2="${width - padding}" y2="${midY}" stroke="var(--border)" stroke-width="1" />
+      ${bars}
+    </svg>
+  `;
+}
+
+function renderInstitutionalStockList(title, rows) {
+  if (rows.length === 0) return '';
+  const items = rows.map((r) => `
+    <div class="mini-card">
+      <div class="name">${escapeHtml(r.code)} ${escapeHtml(r.name)}</div>
+      <div class="value pct ${netClass(r.totalNet)}">${formatShares(r.totalNet)}</div>
+    </div>
+  `).join('');
+  return `<div class="meta-line" style="margin:14px 0 8px;">${escapeHtml(title)}</div><div class="grid">${items}</div>`;
+}
+
+async function loadInstitutional() {
+  const metaEl = document.getElementById('institutional-meta');
+  const contentEl = document.getElementById('institutional-content');
+
+  let data;
+  try {
+    data = await fetchJson('data/institutional/latest.json');
+  } catch (err) {
+    metaEl.textContent = '';
+    contentEl.innerHTML = `<div class="error-box">讀取三大法人資料失敗：${escapeHtml(err.message)}</div>`;
+    return;
+  }
+
+  const market = data.market;
+  const staleNote = data.is_data_stale_vs_request
+    ? `　（要求日期 ${data.requested_date}，但當天尚未結算，顯示最近一個已結算交易日）`
+    : '';
+  metaEl.textContent = market.settled
+    ? `盤後結算資料・${market.date}${staleNote}　⚠ 非即時，收盤後下午才會有當天數字`
+    : `⚠ 目前查不到已結算資料：${market.reason || '未知原因'}`;
+
+  if (!market.settled) {
+    contentEl.innerHTML = `<div class="error-box">${escapeHtml(market.reason || '查詢失敗')}</div>`;
+    return;
+  }
+
+  const summaryCards = [
+    { name: '外資', net: market.foreign?.net },
+    { name: '投信', net: market.trust?.net },
+    { name: '自營商', net: market.dealer?.net },
+    { name: '三大法人合計', net: market.total?.net },
+  ].map((s) => `
+    <div class="mini-card">
+      <div class="name">${escapeHtml(s.name)}</div>
+      <div class="value pct ${netClass(s.net)}">${formatTwdAmount(s.net)}</div>
+    </div>
+  `).join('');
+
+  const validationNote = market.validation?.matches === false
+    ? `<div class="warning-box" style="margin-top:12px;">⚠ 內部勾稽對不上：自營商+投信+外資加總 ${formatTwdAmount(market.validation.reconstructed_total)}，官方合計 ${formatTwdAmount(market.validation.official_total)}，數字可能有異動或解析有誤，僅供參考</div>`
+    : '';
+
+  const stocks = Object.entries(data.tracked_stocks?.stocks || {}).map(([code, s]) => ({ code, ...s }));
+  const buys = [...stocks].filter((s) => s.totalNet > 0).sort((a, b) => b.totalNet - a.totalNet).slice(0, 5);
+  const sells = [...stocks].filter((s) => s.totalNet < 0).sort((a, b) => a.totalNet - b.totalNet).slice(0, 5);
+  const missingNote = data.tracked_stocks?.missingCodesNote
+    ? `<div class="meta-line" style="margin-top:10px;">${escapeHtml(data.tracked_stocks.missingCodesNote)}</div>`
+    : '';
+
+  contentEl.innerHTML = `
+    <div class="grid">${summaryCards}</div>
+    ${validationNote}
+    <div class="meta-line" style="margin:18px 0 6px;">近 ${data.trend.length} 個已結算交易日．三大法人合計買賣超金額</div>
+    ${renderTrendChart(data.trend)}
+    ${renderInstitutionalStockList('追蹤股票中．三大法人買超最多（張）', buys)}
+    ${renderInstitutionalStockList('追蹤股票中．三大法人賣超最多（張）', sells)}
+    ${missingNote}
+  `;
+}
+
 async function loadAll() {
-  await Promise.all([loadMarket(), loadSectors()]);
+  await Promise.all([loadMarket(), loadSectors(), loadInstitutional()]);
 }
 
 loadAll();

@@ -174,3 +174,17 @@ gh repo edit lemon10712-coder/tw-daytrading-engine --visibility public --accept-
 
 **Why**：使用者對「回報已修好但實際上沒有」這類模式很敏感（見全域記憶 `feedback_dont_just_report_recurring_issues`），所以每個「看起來完成」的步驟都堅持做真實驗證（API成功≠網站真的能看、程式邏輯對≠正式環境資料也對），不是只憑指令執行無錯誤就回報完成。
 **How to apply**：之後這個網站如果使用者說「畫面怪怪的」，先查是不是 Phase 0 之後新增的欄位/頁面（沿用 daily-trading-site 的教訓，新 schema 上線前的舊資料不會有新欄位，不是網站壞了）；Playwright 瀏覽器被佔用時不用一直重試，可以先做別的事，等使用者告知空出來或下次對話開場再驗證一次。
+
+## 2026-08-03：新增三大法人動向（盤後結算資料，獨立於 run-engine pipeline）
+
+使用者發現 daily-trading-site 的日報有明顯查證不足的問題（LINE收到的訊息內容跟正式報告對不上、50萬本金過濾形同虛設），順帶要求在這個新系統加上三大法人買賣超儀表板，明確接受「只能拿到盤後結算資料，不是即時」。
+
+**資料來源與交叉驗證**：`scripts/lib/institutional-investors.js` 接 TWSE 官方免費 API——`BFI82U`（全市場買賣金額彙總，新台幣元）＋ `T86`（個股別買賣超，股數）。兩者單位不同（元 vs 股），沒辦法直接加總互相勾稽，改用**各自的內部勾稽**：BFI82U 驗證「自營商(自行+避險)＋投信＋外資及陸資＝合計」；T86 逐檔驗證「外陸資＋投信＋自營商＝三大法人買賣超」。兩條規則都用 2026-07-31 真實資料手算驗證過，完全吻合（含官方「外資自營商不納入合計」這個特例）。查不到已結算資料時（週末/假日/當天還沒結算）明確回傳 `settled:false` + 原因，不會用舊資料冒充當天，也不會讓整支腳本崩潰。
+
+**已知限制（尚未做）**：只接了 TWSE 上市（T86/BFI82U），上櫃（TPEx）三大法人資料還沒串——追蹤的 79 檔代表股裡有 9 檔（例如 5347 世界先進）查不到就是因為這個缺口，`scripts/fetch-institutional.mjs` 執行時會印出來、資料裡也有 `missingCodesNote` 欄位，前端會照樣顯示這則說明，不是靜默漏掉。
+
+**排程**：獨立 workflow `.github/workflows/fetch-institutional.yml`（只有 `workflow_dispatch`，沒有另外的 GitHub 原生 schedule），資料寫進 `data/institutional/`（跟 `data/market-state/`／`data/sector-radar/` 一樣的按日期分檔＋`latest.json` 慣例，`latest.json` 額外帶近20個交易日的 `trend` 陣列給前端畫圖）。**cron-job.org 排程還沒註冊**——`.secrets/cron-job-org.md` 裡只有 GitHub PAT（且僅限 daily-trading-site 那個 repo）跟 cron-job.org 帳密，沒有 cron-job.org 自己 REST API 用的 API key（那組 key 是 2026-08-01 使用者臨時提供、用完沒有留存，比照專案慣例不把金鑰明碼寫死）。要嘛使用者重新提供一次 cron-job.org API key（比照 Task 6 的模式，我可以直接用 API 建 job，建議時間點抓收盤後 14:30-15:00、只在週一到週五），要嘛使用者自己去 cron-job.org 後台手動加。
+
+**前端**：沿用既有頁面風格（CSS variable、`.mini-card`/`.grid`），新增外資/投信/自營商/合計四張卡片（紅買超綠賣超，跟既有 `--up`/`--down` 語彙一致）、手刻 SVG 長條圖畫近期趨勢、從追蹤股票（`config/sectors.json` 的79檔代表股）裡挑出三大法人買超/賣超最多的各5檔。因為沒有 jsdom，用 Node `vm` 模組載入 `assets/app.js` + `index.html` 內嵌 script、餵假 DOM/fetch，實際跑一次 `loadInstitutional()` 對真實 `data/institutional/latest.json` 驗證不會拋例外、數字換算正確（例如外資淨買超 67,553,825,161元 正確顯示成 +675.54億），不是只憑肉眼看程式碼覺得應該沒問題。
+
+**沒做的**：沒補單元測試（`scripts/test/institutional-investors.test.js` 之類），只用真實 API 資料手動跑腳本＋上面的 vm 渲染驗證確認邏輯正確，優先度上核心功能可動比補測試重要，之後有空可以照現有 `*.test.js` 的 fixture 模式補上。

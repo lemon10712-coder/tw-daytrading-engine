@@ -28,6 +28,34 @@ function escapeHtml(str) {
   return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+// 三大法人買賣金額原始單位是「元」，數字動輒上億，直接顯示一長串位數不好讀，
+// 換算成「億」為單位（保留2位小數）；小於1億的金額換算成「萬」，避免顯示成 0.00億。
+function formatTwdAmount(amount) {
+  if (amount == null) return '—';
+  const sign = amount > 0 ? '+' : amount < 0 ? '-' : '';
+  const abs = Math.abs(amount);
+  if (abs >= 1e8) return `${sign}${(abs / 1e8).toFixed(2)}億`;
+  if (abs >= 1e4) return `${sign}${(abs / 1e4).toFixed(1)}萬`;
+  return `${sign}${abs.toLocaleString('zh-TW')}元`;
+}
+
+// 三大法人個股別買賣超單位是「股」，換算成「張」（1張=1000股）比較符合台股慣例的閱讀方式
+function formatShares(shares) {
+  if (shares == null) return '—';
+  const sign = shares > 0 ? '+' : shares < 0 ? '-' : '';
+  const lots = Math.abs(shares) / 1000;
+  return `${sign}${lots.toLocaleString('zh-TW', { maximumFractionDigits: 1 })}張`;
+}
+
+// 買超（正值）用紅色（--up），賣超（負值）用綠色（--down），跟現有 pctClass 語意一致，
+// 只是這裡輸入是原始金額/股數而不是百分比
+function netClass(value) {
+  if (value == null) return 'flat';
+  if (value > 0) return 'up';
+  if (value < 0) return 'down';
+  return 'flat';
+}
+
 function renderDataWarnings(containerEl, warnings) {
   if (!warnings || warnings.length === 0) {
     containerEl.style.display = 'none';
