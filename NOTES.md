@@ -188,3 +188,12 @@ gh repo edit lemon10712-coder/tw-daytrading-engine --visibility public --accept-
 **前端**：沿用既有頁面風格（CSS variable、`.mini-card`/`.grid`），新增外資/投信/自營商/合計四張卡片（紅買超綠賣超，跟既有 `--up`/`--down` 語彙一致）、手刻 SVG 長條圖畫近期趨勢、從追蹤股票（`config/sectors.json` 的79檔代表股）裡挑出三大法人買超/賣超最多的各5檔。因為沒有 jsdom，用 Node `vm` 模組載入 `assets/app.js` + `index.html` 內嵌 script、餵假 DOM/fetch，實際跑一次 `loadInstitutional()` 對真實 `data/institutional/latest.json` 驗證不會拋例外、數字換算正確（例如外資淨買超 67,553,825,161元 正確顯示成 +675.54億），不是只憑肉眼看程式碼覺得應該沒問題。
 
 **沒做的**：沒補單元測試（`scripts/test/institutional-investors.test.js` 之類），只用真實 API 資料手動跑腳本＋上面的 vm 渲染驗證確認邏輯正確，優先度上核心功能可動比補測試重要，之後有空可以照現有 `*.test.js` 的 fixture 模式補上。
+
+## 2026-08-04：法人資料 cron 排程接上，補做端到端驗證（承接一個被意外關掉分頁的 Claude Code session）
+
+使用者在另一個終端機視窗跑 Claude Code 設定 cron-job.org 排程時，不小心把分頁關掉，工作中斷。回到這個 session 後重建進度：
+
+- **發現**：`.secrets/cron-job-org.md` 顯示 API key 是**當天（2026-08-04）才取得**，且 cron-job.org 上已經有一個 job（`8213803`，標題「tw-daytrading-engine institutional flow fetch (14:00-15:30 Taipei)」）——但實際排程設定只有 `hours:[15], minutes:[0]`，只會在 15:00 觸發一次，跟標題講的「14:00-15:30」範圍對不上。同時 `fetch-institutional.yml` 這個 workflow 一次都還沒真正跑過（`gh run list` 是空的）。判斷是分頁關掉前，job 建到一半（排程欄位還沒補完）就中斷了。
+- **補做端到端驗證**：手動 `gh workflow run fetch-institutional.yml` 觸發，21 秒內完成、成功 push `data/institutional/latest.json`——真實資料，`settled: true`，BFI82U 內部勾稽驗證 `matches: true`。確認整支 pipeline（抓資料→驗證→commit→push）在 GitHub Actions 上真的能動，不是只有程式邏輯看起來對。
+- **修正排程**：用 cron-job.org REST API `PATCH /jobs/8213803`，把排程改成 `hours:[14,15], minutes:[0,30]`（週一到週五），變成 14:00/14:30/15:00/15:30 四個觸發點，呼應標題原本的意圖——法人結算資料有時候收盤後不會立刻好，多打幾次讓程式的 `settled:false` 判斷自然處理「還沒結算」的情況，不用賭準時一次到位。改完用 `GET /jobs/8213803` 核對回傳的 schedule 內容確認真的生效（呼應 [[project_tw_daytrading_engine]] 2026-08-01 那次踩過的坑：cron-job.org 的 PUT/PATCH 不能只看 HTTP 200 就相信，要逐一 GET 核對）。
+- **Task 7（原本 run-engine 那組排程的端到端驗證）現況不變**，這次只是額外處理法人資料這條獨立排程线；`data/institutional/` 現在有排程會自動更新，之後可以順便觀察 Task 7 跟法人資料排程有沒有都準時觸發。
