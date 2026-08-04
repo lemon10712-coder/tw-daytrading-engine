@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "requested_date": "2026-08-03",
+  "requested_date": "2026-08-04",
   "resolved_date": "2026-08-03",
-  "generated_at_taipei": "2026-08-03 20:28:29",
-  "is_data_stale_vs_request": false,
+  "generated_at_taipei": "2026-08-04 14:17:27",
+  "is_data_stale_vs_request": true,
   "market": {
     "date": "2026-08-03",
     "settled": true,
@@ -580,5 +580,44 @@
       "dealerNet": -20653372342,
       "totalNet": -16519607403
     }
-  ]
+  ],
+  "analysis": {
+    "data_point_count": 2,
+    "data_limitation_note": "目前只累積了 2 個已結算交易日的資料，樣本數過少，連續買賣超天數與方向判斷僅供參考，至少累積 5 天以上才有比較穩定的趨勢意義。",
+    "headline": "三大法人合計由買轉賣；今日買超方為：投信；今日賣超方為：外資、自營商。",
+    "groups": {
+      "foreign": {
+        "label": "外資",
+        "latest_net": -19190915634,
+        "previous_net": 67553825161,
+        "direction": "由買轉賣",
+        "streak_days": 1,
+        "streak_note": null
+      },
+      "trust": {
+        "label": "投信",
+        "latest_net": 23324680573,
+        "previous_net": 36020110243,
+        "direction": "維持買超",
+        "streak_days": 2,
+        "streak_note": "已連續 2 個已結算交易日買超"
+      },
+      "dealer": {
+        "label": "自營商",
+        "latest_net": -20653372342,
+        "previous_net": -16259524590,
+        "direction": "維持賣超",
+        "streak_days": 2,
+        "streak_note": "已連續 2 個已結算交易日賣超"
+      },
+      "total": {
+        "label": "三大法人合計",
+        "latest_net": -16519607403,
+        "previous_net": 87314410814,
+        "direction": "由買轉賣",
+        "streak_days": 1,
+        "streak_note": null
+      }
+    }
+  }
 }

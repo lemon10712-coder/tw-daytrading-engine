@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { taipeiNow, formatDateYYYYMMDD } from './lib/time.js';
 import { fetchLatestSettledMarketSummary, fetchStockFlows } from './lib/institutional-investors.js';
+import { analyzeInstitutionalTrend } from './lib/institutional-analysis.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -99,6 +100,9 @@ async function main() {
   }
 
   const trend = buildTrend(market.date ?? requestedDateIso, market);
+  const analysis = analyzeInstitutionalTrend(trend);
+  console.log(`[動向解讀] ${analysis.headline}`);
+  if (analysis.data_limitation_note) console.log(`[動向解讀] ⚠ ${analysis.data_limitation_note}`);
 
   const dayEntry = {
     requested_date: requestedDateIso,
@@ -116,6 +120,7 @@ async function main() {
     market,
     tracked_stocks: stockFlows,
     trend, // 近 20 個已結算交易日的全市場買賣超金額，畫趨勢圖用
+    analysis, // 規則式動向解讀（方向變化/連續天數/一句話總結），純從 trend 算出，非AI臆測
   };
 
   const targetFileDate = market.settled ? market.date : requestedDateIso;

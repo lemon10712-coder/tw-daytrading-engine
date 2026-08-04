@@ -211,6 +211,35 @@ function renderTrendChart(trend) {
   `;
 }
 
+function renderInstitutionalAnalysis(analysis) {
+  if (!analysis) return '';
+  const groupOrder = ['foreign', 'trust', 'dealer', 'total'];
+  const groupRows = groupOrder.map((key) => {
+    const g = analysis.groups?.[key];
+    if (!g) return '';
+    return `
+      <div class="mini-card">
+        <div class="name">${escapeHtml(g.label)}</div>
+        <div class="value pct ${netClass(g.latest_net)}">${escapeHtml(g.direction)}</div>
+        ${g.streak_note ? `<div class="meta-line" style="margin-top:2px;">${escapeHtml(g.streak_note)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  const limitationNote = analysis.data_limitation_note
+    ? `<div class="warning-box" style="margin-top:10px;">⚠ ${escapeHtml(analysis.data_limitation_note)}</div>`
+    : '';
+
+  return `
+    <div class="meta-line" style="margin:18px 0 6px;">法人動向解讀</div>
+    <div class="callout-box">
+      <div style="font-size:14px; color:var(--text); margin-bottom:10px;">${escapeHtml(analysis.headline)}</div>
+      <div class="grid">${groupRows}</div>
+    </div>
+    ${limitationNote}
+  `;
+}
+
 function renderInstitutionalStockList(title, rows) {
   if (rows.length === 0) return '';
   const items = rows.map((r) => `
@@ -274,6 +303,7 @@ async function loadInstitutional() {
   contentEl.innerHTML = `
     <div class="grid">${summaryCards}</div>
     ${validationNote}
+    ${renderInstitutionalAnalysis(data.analysis)}
     <div class="meta-line" style="margin:18px 0 6px;">近 ${data.trend.length} 個已結算交易日．三大法人合計買賣超金額</div>
     ${renderTrendChart(data.trend)}
     ${renderInstitutionalStockList('追蹤股票中．三大法人買超最多（張）', buys)}
