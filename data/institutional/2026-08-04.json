@@ -1,9 +1,6 @@
 {
-  "schema_version": 1,
   "requested_date": "2026-08-04",
-  "resolved_date": "2026-08-04",
   "generated_at_taipei": "2026-08-04 22:45:19",
-  "is_data_stale_vs_request": false,
   "market": {
     "date": "2026-08-04",
     "settled": true,
@@ -564,67 +561,5 @@
       "mismatches": []
     },
     "missingCodesNote": "查無資料的代號多半是上櫃股票——TWSE T86 只收錄上市股票，上櫃（TPEx）三大法人個股資料尚未串接，是已知功能缺口，不代表查詢失敗。"
-  },
-  "trend": [
-    {
-      "date": "2026-07-31",
-      "foreignNet": 67553825161,
-      "trustNet": 36020110243,
-      "dealerNet": -16259524590,
-      "totalNet": 87314410814
-    },
-    {
-      "date": "2026-08-03",
-      "foreignNet": -19190915634,
-      "trustNet": 23324680573,
-      "dealerNet": -20653372342,
-      "totalNet": -16519607403
-    },
-    {
-      "date": "2026-08-04",
-      "foreignNet": -5731532826,
-      "trustNet": 27165160060,
-      "dealerNet": -19428736709,
-      "totalNet": 2004890525
-    }
-  ],
-  "analysis": {
-    "data_point_count": 3,
-    "data_limitation_note": "目前只累積了 3 個已結算交易日的資料，樣本數過少，連續買賣超天數與方向判斷僅供參考，至少累積 5 天以上才有比較穩定的趨勢意義。",
-    "headline": "三大法人合計由賣轉買；今日買超方為：投信；今日賣超方為：外資、自營商。",
-    "groups": {
-      "foreign": {
-        "label": "外資",
-        "latest_net": -5731532826,
-        "previous_net": -19190915634,
-        "direction": "維持賣超",
-        "streak_days": 2,
-        "streak_note": "已連續 2 個已結算交易日賣超"
-      },
-      "trust": {
-        "label": "投信",
-        "latest_net": 27165160060,
-        "previous_net": 23324680573,
-        "direction": "維持買超",
-        "streak_days": 3,
-        "streak_note": "已連續 3 個已結算交易日買超"
-      },
-      "dealer": {
-        "label": "自營商",
-        "latest_net": -19428736709,
-        "previous_net": -20653372342,
-        "direction": "維持賣超",
-        "streak_days": 3,
-        "streak_note": "已連續 3 個已結算交易日賣超"
-      },
-      "total": {
-        "label": "三大法人合計",
-        "latest_net": 2004890525,
-        "previous_net": -16519607403,
-        "direction": "由賣轉買",
-        "streak_days": 1,
-        "streak_note": null
-      }
-    }
   }
 }
