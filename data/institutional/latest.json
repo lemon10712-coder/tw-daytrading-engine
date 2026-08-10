@@ -1,37 +1,37 @@
 {
   "schema_version": 1,
   "requested_date": "2026-08-10",
-  "resolved_date": "2026-08-07",
-  "generated_at_taipei": "2026-08-10 14:30:46",
-  "is_data_stale_vs_request": true,
+  "resolved_date": "2026-08-10",
+  "generated_at_taipei": "2026-08-10 15:00:53",
+  "is_data_stale_vs_request": false,
   "market": {
-    "date": "2026-08-07",
+    "date": "2026-08-10",
     "settled": true,
     "source": "TWSE BFI82U（上市，全市場彙總）",
     "currency": "TWD",
     "foreign": {
-      "buy": 310339947885,
-      "sell": 351055691675,
-      "net": -40715743790
+      "buy": 326532363026,
+      "sell": 274817477894,
+      "net": 51714885132
     },
     "trust": {
-      "buy": 16799691936,
-      "sell": 18001413338,
-      "net": -1201721402
+      "buy": 16221682632,
+      "sell": 13237316434,
+      "net": 2984366198
     },
     "dealer": {
-      "buy": 34282127689,
-      "sell": 35250199563,
-      "net": -968071874,
+      "buy": 46102263138,
+      "sell": 27634137181,
+      "net": 18468125957,
       "self": {
-        "buy": 9433931221,
-        "sell": 8716492897,
-        "net": 717438324
+        "buy": 10654284227,
+        "sell": 5376123028,
+        "net": 5278161199
       },
       "hedge": {
-        "buy": 24848196468,
-        "sell": 26533706666,
-        "net": -1685510198
+        "buy": 35447978911,
+        "sell": 22258014153,
+        "net": 13189964758
       }
     },
     "foreignDealer": {
@@ -40,21 +40,21 @@
       "net": 0
     },
     "total": {
-      "buy": 361421767510,
-      "sell": 404307304576,
-      "net": -42885537066
+      "buy": 388856308796,
+      "sell": 315688931509,
+      "net": 73167377287
     },
     "validation": {
       "rule": "自營商(自行+避險) + 投信 + 外資及陸資(不含外資自營商) 應等於合計",
-      "reconstructed_total": -42885537066,
-      "official_total": -42885537066,
+      "reconstructed_total": 73167377287,
+      "official_total": 73167377287,
       "matches": true
     }
   },
   "tracked_stocks": {
-    "date": "2026-08-07",
+    "date": "2026-08-10",
     "settled": false,
-    "reason": "TWSE T86 API 呼叫失敗：HTTP 404",
+    "reason": "TWSE 回應：「很抱歉，沒有符合條件的資料!」（常見原因：非交易日、假日、或當天尚未結算）",
     "stocks": {}
   },
   "trend": [
@@ -99,42 +99,49 @@
       "trustNet": -1201721402,
       "dealerNet": -968071874,
       "totalNet": -42885537066
+    },
+    {
+      "date": "2026-08-10",
+      "foreignNet": 51714885132,
+      "trustNet": 2984366198,
+      "dealerNet": 18468125957,
+      "totalNet": 73167377287
     }
   ],
   "analysis": {
-    "data_point_count": 6,
+    "data_point_count": 7,
     "data_limitation_note": null,
-    "headline": "三大法人合計由買轉賣；今日賣超方為：外資、投信、自營商。",
+    "headline": "三大法人合計由賣轉買；今日買超方為：外資、投信、自營商。",
     "groups": {
       "foreign": {
         "label": "外資",
-        "latest_net": -40715743790,
-        "previous_net": 2019818140,
-        "direction": "由買轉賣",
+        "latest_net": 51714885132,
+        "previous_net": -40715743790,
+        "direction": "由賣轉買",
         "streak_days": 1,
         "streak_note": null
       },
       "trust": {
         "label": "投信",
-        "latest_net": -1201721402,
-        "previous_net": 9408386624,
-        "direction": "由買轉賣",
+        "latest_net": 2984366198,
+        "previous_net": -1201721402,
+        "direction": "由賣轉買",
         "streak_days": 1,
         "streak_note": null
       },
       "dealer": {
         "label": "自營商",
-        "latest_net": -968071874,
-        "previous_net": -6312818587,
-        "direction": "維持賣超",
-        "streak_days": 2,
-        "streak_note": "已連續 2 個已結算交易日賣超"
+        "latest_net": 18468125957,
+        "previous_net": -968071874,
+        "direction": "由賣轉買",
+        "streak_days": 1,
+        "streak_note": null
       },
       "total": {
         "label": "三大法人合計",
-        "latest_net": -42885537066,
-        "previous_net": 5115386177,
-        "direction": "由買轉賣",
+        "latest_net": 73167377287,
+        "previous_net": -42885537066,
+        "direction": "由賣轉買",
         "streak_days": 1,
         "streak_note": null
       }
