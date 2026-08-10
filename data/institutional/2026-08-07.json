@@ -1,24 +1,24 @@
 {
-  "requested_date": "2026-08-07",
-  "generated_at_taipei": "2026-08-07 15:30:46",
+  "requested_date": "2026-08-10",
+  "generated_at_taipei": "2026-08-10 14:00:50",
   "market": {
     "date": "2026-08-07",
     "settled": true,
     "source": "TWSE BFI82U（上市，全市場彙總）",
     "currency": "TWD",
     "foreign": {
-      "buy": 304307797581,
-      "sell": 345023541371,
+      "buy": 310339947885,
+      "sell": 351055691675,
       "net": -40715743790
     },
     "trust": {
-      "buy": 14297504890,
-      "sell": 16857868402,
-      "net": -2560363512
+      "buy": 16799691936,
+      "sell": 18001413338,
+      "net": -1201721402
     },
     "dealer": {
-      "buy": 34281309472,
-      "sell": 35249381346,
+      "buy": 34282127689,
+      "sell": 35250199563,
       "net": -968071874,
       "self": {
         "buy": 9433931221,
@@ -26,8 +26,8 @@
         "net": 717438324
       },
       "hedge": {
-        "buy": 24847378251,
-        "sell": 26532888449,
+        "buy": 24848196468,
+        "sell": 26533706666,
         "net": -1685510198
       }
     },
@@ -37,21 +37,21 @@
       "net": 0
     },
     "total": {
-      "buy": 352886611943,
-      "sell": 397130791119,
-      "net": -44244179176
+      "buy": 361421767510,
+      "sell": 404307304576,
+      "net": -42885537066
     },
     "validation": {
       "rule": "自營商(自行+避險) + 投信 + 外資及陸資(不含外資自營商) 應等於合計",
-      "reconstructed_total": -44244179176,
-      "official_total": -44244179176,
+      "reconstructed_total": -42885537066,
+      "official_total": -42885537066,
       "matches": true
     }
   },
   "tracked_stocks": {
     "date": "2026-08-07",
     "settled": false,
-    "reason": "TWSE 回應：「很抱歉，沒有符合條件的資料!」（常見原因：非交易日、假日、或當天尚未結算）",
+    "reason": "TWSE T86 API 呼叫失敗：HTTP 404",
     "stocks": {}
   }
 }
