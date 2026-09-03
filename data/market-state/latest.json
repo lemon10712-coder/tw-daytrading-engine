@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-09-03",
   "entry": {
-    "generated_at_taipei": "2026-09-03 11:10:29",
+    "generated_at_taipei": "2026-09-03 11:15:27",
     "trading_day": {
       "date": "2026-09-03",
       "isTradingDay": true,
@@ -10,12 +10,12 @@
       "source": "twse_openapi"
     },
     "market_state": {
-      "state": "震盪",
-      "reason": "台股本身處於平盤區間，尚未確認方向",
+      "state": "偏多",
+      "reason": "國際與台股方向一致（偏多）",
       "intl": {
         "direction": "偏多",
-        "reason": "11 項國際指標中 5 項上漲、4 項下跌，平均漲跌幅 1.11%",
-        "avgReturn": 0.0110565465975567,
+        "reason": "11 項國際指標中 5 項上漲、4 項下跌，平均漲跌幅 1.13%",
+        "avgReturn": 0.011284481456931767,
         "signals": [
           {
             "name": "道瓊工業指數",
@@ -84,9 +84,9 @@
           {
             "name": "美元指數",
             "symbol": "DX-Y.NYB",
-            "price": 99.47,
-            "previousClose": 99.7,
-            "pctChange": -0.0023069207622869003,
+            "price": 99.438,
+            "previousClose": 99.43,
+            "pctChange": 0.00008045861410032752,
             "state": "flat"
           },
           {
@@ -100,22 +100,22 @@
           {
             "name": "原油",
             "symbol": "CL=F",
-            "price": 91.06,
+            "price": 91.07,
             "previousClose": 83.4,
-            "pctChange": 0.09184652278177453,
+            "pctChange": 0.09196642685851303,
             "state": "up"
           }
         ]
       },
       "taiwan": {
-        "direction": "中性",
-        "reason": "加權指數 -0.52%、櫃買指數 0.65%",
-        "avgReturn": 0.0006251982269699077,
+        "direction": "偏多",
+        "reason": "加權指數 0.07%、櫃買指數 0.65%",
+        "avgReturn": 0.003602450168629073,
         "signals": [
           {
             "name": "加權指數",
-            "pctChange": -0.005211578744028066,
-            "state": "down"
+            "pctChange": 0.0007429251392902647,
+            "state": "flat"
           },
           {
             "name": "櫃買指數",
@@ -123,13 +123,13 @@
             "state": "up"
           }
         ],
-        "txBasisNote": "台指期基差 0.10%，接近平盤"
+        "txBasisNote": "台指期基差 0.05%，接近平盤"
       }
     },
     "intl": {
       "direction": "偏多",
-      "reason": "11 項國際指標中 5 項上漲、4 項下跌，平均漲跌幅 1.11%",
-      "avgReturn": 0.0110565465975567,
+      "reason": "11 項國際指標中 5 項上漲、4 項下跌，平均漲跌幅 1.13%",
+      "avgReturn": 0.011284481456931767,
       "signals": [
         {
           "name": "道瓊工業指數",
@@ -198,9 +198,9 @@
         {
           "name": "美元指數",
           "symbol": "DX-Y.NYB",
-          "price": 99.47,
-          "previousClose": 99.7,
-          "pctChange": -0.0023069207622869003,
+          "price": 99.438,
+          "previousClose": 99.43,
+          "pctChange": 0.00008045861410032752,
           "state": "flat"
         },
         {
@@ -214,22 +214,22 @@
         {
           "name": "原油",
           "symbol": "CL=F",
-          "price": 91.06,
+          "price": 91.07,
           "previousClose": 83.4,
-          "pctChange": 0.09184652278177453,
+          "pctChange": 0.09196642685851303,
           "state": "up"
         }
       ]
     },
     "taiwan": {
-      "direction": "中性",
-      "reason": "加權指數 -0.52%、櫃買指數 0.65%",
-      "avgReturn": 0.0006251982269699077,
+      "direction": "偏多",
+      "reason": "加權指數 0.07%、櫃買指數 0.65%",
+      "avgReturn": 0.003602450168629073,
       "signals": [
         {
           "name": "加權指數",
-          "pctChange": -0.005211578744028066,
-          "state": "down"
+          "pctChange": 0.0007429251392902647,
+          "state": "flat"
         },
         {
           "name": "櫃買指數",
@@ -237,14 +237,14 @@
           "state": "up"
         }
       ],
-      "txBasisNote": "台指期基差 0.10%，接近平盤"
+      "txBasisNote": "台指期基差 0.05%，接近平盤"
     },
     "tx_futures_raw": [
       {
         "symbolId": "TXF-S",
         "name": "臺指現貨",
         "status": "",
-        "last": 46250.72,
+        "last": 46391.53,
         "open": 46325.48,
         "high": 46517.45,
         "low": 45992.5,
@@ -253,37 +253,37 @@
         "limitDown": null,
         "openInterest": null,
         "quoteDate": "2026-09-03",
-        "quoteTime": "111030"
+        "quoteTime": "111530"
       },
       {
         "symbolId": "TXFI6-F",
         "name": "臺指期096",
         "status": "",
-        "last": 46297,
+        "last": 46414,
         "open": 46169,
-        "high": 46399,
+        "high": 46439,
         "low": 45923,
         "ref": 46165,
         "limitUp": 50781,
         "limitDown": 41549,
         "openInterest": null,
         "quoteDate": "2026-09-03",
-        "quoteTime": "111030"
+        "quoteTime": "111532"
       },
       {
         "symbolId": "TXFJ6-F",
         "name": "臺指期106",
         "status": "",
-        "last": 46450,
+        "last": 46625,
         "open": 46374,
-        "high": 46556,
+        "high": 46625,
         "low": 46121,
         "ref": 46365,
         "limitUp": 51001,
         "limitDown": 41729,
         "openInterest": null,
         "quoteDate": "2026-09-03",
-        "quoteTime": "110649"
+        "quoteTime": "111501"
       },
       {
         "symbolId": "TXFK6-F",
@@ -304,7 +304,7 @@
         "symbolId": "TXFL6-F",
         "name": "臺指期126",
         "status": "",
-        "last": 46758,
+        "last": 46828,
         "open": 46747,
         "high": 46844,
         "low": 46650,
@@ -313,7 +313,7 @@
         "limitDown": 42044,
         "openInterest": null,
         "quoteDate": "2026-09-03",
-        "quoteTime": "110221"
+        "quoteTime": "111139"
       },
       {
         "symbolId": "TXFC7-F",
@@ -334,16 +334,16 @@
         "symbolId": "TXFF7-F",
         "name": "臺指期067",
         "status": "",
-        "last": null,
-        "open": null,
-        "high": null,
-        "low": null,
+        "last": 47772,
+        "open": 47772,
+        "high": 47772,
+        "low": 47772,
         "ref": 47713,
         "limitUp": 52484,
         "limitDown": 42942,
         "openInterest": null,
         "quoteDate": "2026-09-03",
-        "quoteTime": null
+        "quoteTime": "111232"
       }
     ]
   }
