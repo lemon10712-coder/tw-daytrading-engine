@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-14",
+  "entries": [
+    {
+      "generated_at_taipei": "2026-09-14 08:00:49",
+      "trading_day": {
+        "date": "2026-09-14",
+        "isTradingDay": true,
+        "reason": null,
+        "source": "twse_openapi"
+      },
+      "market_state": {
+        "state": "震盪",
+        "reason": "台股本身處於平盤區間，尚未確認方向",
+        "intl": {
+          "direction": "偏多",
+          "reason": "11 項國際指標中 6 項上漲、4 項下跌，平均漲跌幅 2.61%",
+          "avgReturn": 0.026100101896154523,
+          "signals": [
+            {
+              "name": "道瓊工業指數",
+              "symbol": "^DJI",
+              "price": 52573.29,
+              "previousClose": 53686.11,
+              "pctChange": -0.02072826658515582,
+              "state": "down"
+            },
+            {
+              "name": "S&P 500",
+              "symbol": "^GSPC",
+              "price": 7656.98,
+              "previousClose": 7747.71,
+              "pctChange": -0.011710557054923387,
+              "state": "down"
+            },
+            {
+              "name": "Nasdaq",
+              "symbol": "^IXIC",
+              "price": 26333.035,
+              "previousClose": 26584.06,
+              "pctChange": -0.009442688588575313,
+              "state": "down"
+            },
+            {
+              "name": "費城半導體指數",
+              "symbol": "^SOX",
+              "price": 11823.998,
+              "previousClose": 11352.13,
+              "pctChange": 0.041566472547442675,
+              "state": "up"
+            },
+            {
+              "name": "NVIDIA",
+              "symbol": "NVDA",
+              "price": 218.29,
+              "previousClose": 228.45,
+              "pctChange": -0.04447362661413875,
+              "state": "down"
+            },
+            {
+              "name": "AMD",
+              "symbol": "AMD",
+              "price": 516.13,
+              "previousClose": 456.16,
+              "pctChange": 0.131467029112592,
+              "state": "up"
+            },
+            {
+              "name": "Micron",
+              "symbol": "MU",
+              "price": 975.26,
+              "previousClose": 958.16,
+              "pctChange": 0.017846706186858168,
+              "state": "up"
+            },
+            {
+              "name": "台積電ADR",
+              "symbol": "TSM",
+              "price": 433.24,
+              "previousClose": 417.01,
+              "pctChange": 0.03891992997769842,
+              "state": "up"
+            },
+            {
+              "name": "美元指數",
+              "symbol": "DX-Y.NYB",
+              "price": 99.127,
+              "previousClose": 98.84,
+              "pctChange": 0.0029036827195466604,
+              "state": "flat"
+            },
+            {
+              "name": "美國10年期公債殖利率",
+              "symbol": "^TNX",
+              "price": 4.975,
+              "previousClose": 4.784,
+              "pctChange": 0.039924749163879565,
+              "state": "up"
+            },
+            {
+              "name": "原油",
+              "symbol": "CL=F",
+              "price": 102.41,
+              "previousClose": 93.03,
+              "pctChange": 0.10082768999247549,
+              "state": "up"
+            }
+          ]
+        },
+        "taiwan": {
+          "direction": "中性",
+          "reason": "加權指數 -2.41%、櫃買指數 0.65%",
+          "avgReturn": -0.008828065438578479,
+          "signals": [
+            {
+              "name": "加權指數",
+              "pctChange": -0.024118106075124837,
+              "state": "down"
+            },
+            {
+              "name": "櫃買指數",
+              "pctChange": 0.006461975197967882,
+              "state": "up"
+            }
+          ],
+          "txBasisNote": null
+        }
+      },
+      "intl": {
+        "direction": "偏多",
+        "reason": "11 項國際指標中 6 項上漲、4 項下跌，平均漲跌幅 2.61%",
+        "avgReturn": 0.026100101896154523,
+        "signals": [
+          {
+            "name": "道瓊工業指數",
+            "symbol": "^DJI",
+            "price": 52573.29,
+            "previousClose": 53686.11,
+            "pctChange": -0.02072826658515582,
+            "state": "down"
+          },
+          {
+            "name": "S&P 500",
+            "symbol": "^GSPC",
+            "price": 7656.98,
+            "previousClose": 7747.71,
+            "pctChange": -0.011710557054923387,
+            "state": "down"
+          },
+          {
+            "name": "Nasdaq",
+            "symbol": "^IXIC",
+            "price": 26333.035,
+            "previousClose": 26584.06,
+            "pctChange": -0.009442688588575313,
+            "state": "down"
+          },
+          {
+            "name": "費城半導體指數",
+            "symbol": "^SOX",
+            "price": 11823.998,
+            "previousClose": 11352.13,
+            "pctChange": 0.041566472547442675,
+            "state": "up"
+          },
+          {
+            "name": "NVIDIA",
+            "symbol": "NVDA",
+            "price": 218.29,
+            "previousClose": 228.45,
+            "pctChange": -0.04447362661413875,
+            "state": "down"
+          },
+          {
+            "name": "AMD",
+            "symbol": "AMD",
+            "price": 516.13,
+            "previousClose": 456.16,
+            "pctChange": 0.131467029112592,
+            "state": "up"
+          },
+          {
+            "name": "Micron",
+            "symbol": "MU",
+            "price": 975.26,
+            "previousClose": 958.16,
+            "pctChange": 0.017846706186858168,
+            "state": "up"
+          },
+          {
+            "name": "台積電ADR",
+            "symbol": "TSM",
+            "price": 433.24,
+            "previousClose": 417.01,
+            "pctChange": 0.03891992997769842,
+            "state": "up"
+          },
+          {
+            "name": "美元指數",
+            "symbol": "DX-Y.NYB",
+            "price": 99.127,
+            "previousClose": 98.84,
+            "pctChange": 0.0029036827195466604,
+            "state": "flat"
+          },
+          {
+            "name": "美國10年期公債殖利率",
+            "symbol": "^TNX",
+            "price": 4.975,
+            "previousClose": 4.784,
+            "pctChange": 0.039924749163879565,
+            "state": "up"
+          },
+          {
+            "name": "原油",
+            "symbol": "CL=F",
+            "price": 102.41,
+            "previousClose": 93.03,
+            "pctChange": 0.10082768999247549,
+            "state": "up"
+          }
+        ]
+      },
+      "taiwan": {
+        "direction": "中性",
+        "reason": "加權指數 -2.41%、櫃買指數 0.65%",
+        "avgReturn": -0.008828065438578479,
+        "signals": [
+          {
+            "name": "加權指數",
+            "pctChange": -0.024118106075124837,
+            "state": "down"
+          },
+          {
+            "name": "櫃買指數",
+            "pctChange": 0.006461975197967882,
+            "state": "up"
+          }
+        ],
+        "txBasisNote": null
+      },
+      "tx_futures_raw": [
+        {
+          "symbolId": "TXF-S",
+          "name": "臺指現貨",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 46184.85,
+          "limitUp": null,
+          "limitDown": null,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFI6-F",
+          "name": "臺指期096",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 46187,
+          "limitUp": 50805,
+          "limitDown": 41569,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFJ6-F",
+          "name": "臺指期106",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 46372,
+          "limitUp": 51009,
+          "limitDown": 41735,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFK6-F",
+          "name": "臺指期116",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 46543,
+          "limitUp": 51197,
+          "limitDown": 41889,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFL6-F",
+          "name": "臺指期126",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 46690,
+          "limitUp": 51359,
+          "limitDown": 42021,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFC7-F",
+          "name": "臺指期037",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 47173,
+          "limitUp": 51890,
+          "limitDown": 42456,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        },
+        {
+          "symbolId": "TXFF7-F",
+          "name": "臺指期067",
+          "status": "",
+          "last": null,
+          "open": null,
+          "high": null,
+          "low": null,
+          "ref": 47629,
+          "limitUp": 52391,
+          "limitDown": 42867,
+          "openInterest": null,
+          "quoteDate": "2026-09-14",
+          "quoteTime": null
+        }
+      ]
+    }
+  ]
+}
