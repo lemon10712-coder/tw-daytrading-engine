@@ -1,24 +1,24 @@
 {
-  "requested_date": "2026-10-19",
-  "generated_at_taipei": "2026-10-19 15:30:44",
+  "requested_date": "2026-10-20",
+  "generated_at_taipei": "2026-10-20 14:00:51",
   "market": {
     "date": "2026-10-19",
     "settled": true,
     "source": "TWSE BFI82U（上市，全市場彙總）",
     "currency": "TWD",
     "foreign": {
-      "buy": 274192856655,
-      "sell": 350935592424,
+      "buy": 276460340925,
+      "sell": 353203076694,
       "net": -76742735769
     },
     "trust": {
-      "buy": 49301602720,
-      "sell": 26250608658,
-      "net": 23050994062
+      "buy": 50699118560,
+      "sell": 26557490609,
+      "net": 24141627951
     },
     "dealer": {
-      "buy": 41651637414,
-      "sell": 77914721170,
+      "buy": 41651968422,
+      "sell": 77915052178,
       "net": -36263083756,
       "self": {
         "buy": 9393790718,
@@ -26,8 +26,8 @@
         "net": -6022889603
       },
       "hedge": {
-        "buy": 32257846696,
-        "sell": 62498040849,
+        "buy": 32258177704,
+        "sell": 62498371857,
         "net": -30240194153
       }
     },
@@ -37,21 +37,529 @@
       "net": 0
     },
     "total": {
-      "buy": 365146096789,
-      "sell": 455100922252,
-      "net": -89954825463
+      "buy": 368811427907,
+      "sell": 457675619481,
+      "net": -88864191574
     },
     "validation": {
       "rule": "自營商(自行+避險) + 投信 + 外資及陸資(不含外資自營商) 應等於合計",
-      "reconstructed_total": -89954825463,
-      "official_total": -89954825463,
+      "reconstructed_total": -88864191574,
+      "official_total": -88864191574,
       "matches": true
     }
   },
   "tracked_stocks": {
     "date": "2026-10-19",
-    "settled": false,
-    "reason": "TWSE 回應：「很抱歉，沒有符合條件的資料!」（常見原因：非交易日、假日、或當天尚未結算）",
-    "stocks": {}
+    "settled": true,
+    "source": "TWSE T86（上市，個股別）",
+    "unit": "shares",
+    "stocks": {
+      "1216": {
+        "name": "統一",
+        "foreignNet": 6665078,
+        "trustNet": -2039207,
+        "dealerNet": 1980016,
+        "totalNet": 6605887
+      },
+      "1301": {
+        "name": "台塑",
+        "foreignNet": -12009205,
+        "trustNet": 0,
+        "dealerNet": 32853,
+        "totalNet": -11976352
+      },
+      "1303": {
+        "name": "南亞",
+        "foreignNet": -8895409,
+        "trustNet": 1920787,
+        "dealerNet": 1564739,
+        "totalNet": -5409883
+      },
+      "1326": {
+        "name": "台化",
+        "foreignNet": -7489841,
+        "trustNet": 1500000,
+        "dealerNet": -579331,
+        "totalNet": -6569172
+      },
+      "1503": {
+        "name": "士電",
+        "foreignNet": -227247,
+        "trustNet": 8000,
+        "dealerNet": -63977,
+        "totalNet": -283224
+      },
+      "1513": {
+        "name": "中興電",
+        "foreignNet": -189036,
+        "trustNet": -228000,
+        "dealerNet": 28918,
+        "totalNet": -388118
+      },
+      "1514": {
+        "name": "亞力",
+        "foreignNet": -278209,
+        "trustNet": 4000,
+        "dealerNet": -6472,
+        "totalNet": -280681
+      },
+      "1519": {
+        "name": "華城",
+        "foreignNet": 744,
+        "trustNet": -166000,
+        "dealerNet": -26035,
+        "totalNet": -191291
+      },
+      "1597": {
+        "name": "直得",
+        "foreignNet": -104993,
+        "trustNet": 0,
+        "dealerNet": -8704,
+        "totalNet": -113697
+      },
+      "1605": {
+        "name": "華新",
+        "foreignNet": -9616037,
+        "trustNet": 0,
+        "dealerNet": -783489,
+        "totalNet": -10399526
+      },
+      "1609": {
+        "name": "大亞",
+        "foreignNet": -490027,
+        "trustNet": 0,
+        "dealerNet": -115581,
+        "totalNet": -605608
+      },
+      "1612": {
+        "name": "宏泰",
+        "foreignNet": -228015,
+        "trustNet": -10000,
+        "dealerNet": -3639,
+        "totalNet": -241654
+      },
+      "1795": {
+        "name": "美時",
+        "foreignNet": -294003,
+        "trustNet": 0,
+        "dealerNet": -53135,
+        "totalNet": -347138
+      },
+      "2002": {
+        "name": "中鋼",
+        "foreignNet": 10021394,
+        "trustNet": 89000,
+        "dealerNet": -530051,
+        "totalNet": 9580343
+      },
+      "2014": {
+        "name": "中鴻",
+        "foreignNet": -73389,
+        "trustNet": 0,
+        "dealerNet": -14000,
+        "totalNet": -87389
+      },
+      "2049": {
+        "name": "上銀",
+        "foreignNet": 371249,
+        "trustNet": -827000,
+        "dealerNet": 69283,
+        "totalNet": -386468
+      },
+      "2231": {
+        "name": "為升",
+        "foreignNet": -53000,
+        "trustNet": 0,
+        "dealerNet": -6786,
+        "totalNet": -59786
+      },
+      "2303": {
+        "name": "聯電",
+        "foreignNet": -5661208,
+        "trustNet": 150751,
+        "dealerNet": 233575,
+        "totalNet": -5276882
+      },
+      "2308": {
+        "name": "台達電",
+        "foreignNet": -834935,
+        "trustNet": 632545,
+        "dealerNet": -578680,
+        "totalNet": -781070
+      },
+      "2313": {
+        "name": "華通",
+        "foreignNet": -1733324,
+        "trustNet": 1133032,
+        "dealerNet": 307854,
+        "totalNet": -292438
+      },
+      "2317": {
+        "name": "鴻海",
+        "foreignNet": -14884319,
+        "trustNet": 817728,
+        "dealerNet": 545378,
+        "totalNet": -13521213
+      },
+      "2327": {
+        "name": "國巨*",
+        "foreignNet": -2425489,
+        "trustNet": -2699124,
+        "dealerNet": -436150,
+        "totalNet": -5560763
+      },
+      "2330": {
+        "name": "台積電",
+        "foreignNet": -9834711,
+        "trustNet": 3884574,
+        "dealerNet": 1346165,
+        "totalNet": -4603972
+      },
+      "2337": {
+        "name": "旺宏",
+        "foreignNet": -13979520,
+        "trustNet": 2415000,
+        "dealerNet": -252015,
+        "totalNet": -11816535
+      },
+      "2344": {
+        "name": "華邦電",
+        "foreignNet": -11015868,
+        "trustNet": -1758184,
+        "dealerNet": 2399243,
+        "totalNet": -10374809
+      },
+      "2345": {
+        "name": "智邦",
+        "foreignNet": 1008383,
+        "trustNet": -61628,
+        "dealerNet": -27967,
+        "totalNet": 918788
+      },
+      "2356": {
+        "name": "英業達",
+        "foreignNet": -82885,
+        "trustNet": -794900,
+        "dealerNet": 1033852,
+        "totalNet": 156067
+      },
+      "2359": {
+        "name": "所羅門",
+        "foreignNet": -40000,
+        "trustNet": 0,
+        "dealerNet": -16202,
+        "totalNet": -56202
+      },
+      "2368": {
+        "name": "金像電",
+        "foreignNet": -1646767,
+        "trustNet": 1214237,
+        "dealerNet": 305596,
+        "totalNet": -126934
+      },
+      "2376": {
+        "name": "技嘉",
+        "foreignNet": -321907,
+        "trustNet": -8659,
+        "dealerNet": 130557,
+        "totalNet": -200009
+      },
+      "2379": {
+        "name": "瑞昱",
+        "foreignNet": 585616,
+        "trustNet": -19167,
+        "dealerNet": 92541,
+        "totalNet": 658990
+      },
+      "2382": {
+        "name": "廣達",
+        "foreignNet": -4139697,
+        "trustNet": 454106,
+        "dealerNet": 626520,
+        "totalNet": -3059071
+      },
+      "2408": {
+        "name": "南亞科",
+        "foreignNet": -5523010,
+        "trustNet": -541117,
+        "dealerNet": 373267,
+        "totalNet": -5690860
+      },
+      "2409": {
+        "name": "友達",
+        "foreignNet": 8761837,
+        "trustNet": 3140671,
+        "dealerNet": 3489168,
+        "totalNet": 15391676
+      },
+      "2454": {
+        "name": "聯發科",
+        "foreignNet": -1153200,
+        "trustNet": 165735,
+        "dealerNet": -214065,
+        "totalNet": -1201530
+      },
+      "2455": {
+        "name": "全新",
+        "foreignNet": -488653,
+        "trustNet": 316000,
+        "dealerNet": -201922,
+        "totalNet": -374575
+      },
+      "2492": {
+        "name": "華新科",
+        "foreignNet": -671250,
+        "trustNet": -674000,
+        "dealerNet": 54993,
+        "totalNet": -1290257
+      },
+      "2542": {
+        "name": "興富發",
+        "foreignNet": 4900066,
+        "trustNet": -304000,
+        "dealerNet": -81442,
+        "totalNet": 4514624
+      },
+      "2548": {
+        "name": "華固",
+        "foreignNet": 182216,
+        "trustNet": 2000,
+        "dealerNet": -33000,
+        "totalNet": 151216
+      },
+      "2603": {
+        "name": "長榮",
+        "foreignNet": -1002605,
+        "trustNet": 2017384,
+        "dealerNet": 472516,
+        "totalNet": 1487295
+      },
+      "2609": {
+        "name": "陽明",
+        "foreignNet": -2015458,
+        "trustNet": 713000,
+        "dealerNet": -585452,
+        "totalNet": -1887910
+      },
+      "2615": {
+        "name": "萬海",
+        "foreignNet": -471930,
+        "trustNet": 522964,
+        "dealerNet": -363429,
+        "totalNet": -312395
+      },
+      "2634": {
+        "name": "漢翔",
+        "foreignNet": 232386,
+        "trustNet": -319000,
+        "dealerNet": 28061,
+        "totalNet": -58553
+      },
+      "2731": {
+        "name": "雄獅",
+        "foreignNet": -54315,
+        "trustNet": -27000,
+        "dealerNet": -1000,
+        "totalNet": -82315
+      },
+      "2881": {
+        "name": "富邦金",
+        "foreignNet": -1404382,
+        "trustNet": -1026763,
+        "dealerNet": 682238,
+        "totalNet": -1748907
+      },
+      "2882": {
+        "name": "國泰金",
+        "foreignNet": -4204412,
+        "trustNet": 2173305,
+        "dealerNet": 603598,
+        "totalNet": -1427509
+      },
+      "2891": {
+        "name": "中信金",
+        "foreignNet": 66211,
+        "trustNet": -1072214,
+        "dealerNet": 3711155,
+        "totalNet": 2705152
+      },
+      "2912": {
+        "name": "統一超",
+        "foreignNet": 4194882,
+        "trustNet": 290000,
+        "dealerNet": 10413,
+        "totalNet": 4495295
+      },
+      "3017": {
+        "name": "奇鋐",
+        "foreignNet": -526724,
+        "trustNet": 509038,
+        "dealerNet": -6184,
+        "totalNet": -23870
+      },
+      "3026": {
+        "name": "禾伸堂",
+        "foreignNet": 280835,
+        "trustNet": 232000,
+        "dealerNet": -316258,
+        "totalNet": 196577
+      },
+      "3037": {
+        "name": "欣興",
+        "foreignNet": -1733396,
+        "trustNet": 703437,
+        "dealerNet": 100,
+        "totalNet": -1029859
+      },
+      "3056": {
+        "name": "富華新",
+        "foreignNet": -186000,
+        "trustNet": 0,
+        "dealerNet": -7416,
+        "totalNet": -193416
+      },
+      "3189": {
+        "name": "景碩",
+        "foreignNet": -3322717,
+        "trustNet": 1789369,
+        "dealerNet": -475619,
+        "totalNet": -2008967
+      },
+      "3231": {
+        "name": "緯創",
+        "foreignNet": -2618672,
+        "trustNet": -4222443,
+        "dealerNet": 1248086,
+        "totalNet": -5593029
+      },
+      "3443": {
+        "name": "創意",
+        "foreignNet": -66340,
+        "trustNet": 218114,
+        "dealerNet": -11184,
+        "totalNet": 140590
+      },
+      "3481": {
+        "name": "群創",
+        "foreignNet": -3191377,
+        "trustNet": 301273,
+        "dealerNet": -470832,
+        "totalNet": -3360936
+      },
+      "3661": {
+        "name": "世芯-KY",
+        "foreignNet": -40849,
+        "trustNet": 43000,
+        "dealerNet": -10544,
+        "totalNet": -8393
+      },
+      "3665": {
+        "name": "貿聯-KY",
+        "foreignNet": -81652,
+        "trustNet": -212935,
+        "dealerNet": -38786,
+        "totalNet": -333373
+      },
+      "4977": {
+        "name": "眾達-KY",
+        "foreignNet": -164180,
+        "trustNet": 0,
+        "dealerNet": -101054,
+        "totalNet": -265234
+      },
+      "5388": {
+        "name": "中磊",
+        "foreignNet": -50824,
+        "trustNet": 2655,
+        "dealerNet": -66406,
+        "totalNet": -114575
+      },
+      "5706": {
+        "name": "鳳凰",
+        "foreignNet": -7000,
+        "trustNet": 0,
+        "dealerNet": -1000,
+        "totalNet": -8000
+      },
+      "6285": {
+        "name": "啟碁",
+        "foreignNet": -2359730,
+        "trustNet": -250000,
+        "dealerNet": -100906,
+        "totalNet": -2710636
+      },
+      "6446": {
+        "name": "藥華藥",
+        "foreignNet": -564340,
+        "trustNet": 11115,
+        "dealerNet": 4958,
+        "totalNet": -548267
+      },
+      "6472": {
+        "name": "保瑞",
+        "foreignNet": -69422,
+        "trustNet": 0,
+        "dealerNet": -25133,
+        "totalNet": -94555
+      },
+      "6669": {
+        "name": "緯穎",
+        "foreignNet": 896073,
+        "trustNet": -1413628,
+        "dealerNet": 78187,
+        "totalNet": -439368
+      },
+      "6770": {
+        "name": "力積電",
+        "foreignNet": -46465738,
+        "trustNet": 12774644,
+        "dealerNet": -1631649,
+        "totalNet": -35322743
+      },
+      "6830": {
+        "name": "汎銓",
+        "foreignNet": 66396,
+        "trustNet": 0,
+        "dealerNet": 4482,
+        "totalNet": 70878
+      },
+      "8046": {
+        "name": "南電",
+        "foreignNet": -792944,
+        "trustNet": 573481,
+        "dealerNet": -78841,
+        "totalNet": -298304
+      },
+      "0050": {
+        "name": "元大台灣50",
+        "foreignNet": -36892650,
+        "trustNet": 5054000,
+        "dealerNet": -61332822,
+        "totalNet": -93171472
+      },
+      "0056": {
+        "name": "元大高股息",
+        "foreignNet": -8520867,
+        "trustNet": 500000,
+        "dealerNet": -90039769,
+        "totalNet": -98060636
+      }
+    },
+    "missingCodes": [
+      "5347",
+      "3105",
+      "8086",
+      "3324",
+      "4979",
+      "3363",
+      "3163",
+      "3081",
+      "3552"
+    ],
+    "validation": {
+      "rule": "外陸資買賣超 + 投信買賣超 + 自營商買賣超 應等於三大法人買賣超",
+      "mismatches": []
+    },
+    "missingCodesNote": "查無資料的代號多半是上櫃股票——TWSE T86 只收錄上市股票，上櫃（TPEx）三大法人個股資料尚未串接，是已知功能缺口，不代表查詢失敗。"
   }
 }
