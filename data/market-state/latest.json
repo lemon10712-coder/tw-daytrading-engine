@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-10-21",
   "entry": {
-    "generated_at_taipei": "2026-10-21 12:25:28",
+    "generated_at_taipei": "2026-10-21 12:30:43",
     "trading_day": {
       "date": "2026-10-21",
       "isTradingDay": true,
@@ -10,12 +10,12 @@
       "source": "twse_openapi"
     },
     "market_state": {
-      "state": "震盪",
-      "reason": "台股本身處於平盤區間，尚未確認方向",
+      "state": "偏空",
+      "reason": "國際與台股方向一致（偏空）",
       "intl": {
         "direction": "偏空",
         "reason": "11 項國際指標中 1 項上漲、9 項下跌，平均漲跌幅 -3.75%",
-        "avgReturn": -0.03747937318848747,
+        "avgReturn": -0.03745787350604449,
         "signals": [
           {
             "name": "道瓊工業指數",
@@ -84,9 +84,9 @@
           {
             "name": "美元指數",
             "symbol": "DX-Y.NYB",
-            "price": 101.748,
+            "price": 101.752,
             "previousClose": 101.84,
-            "pctChange": -0.0009033778476040726,
+            "pctChange": -0.0008641005498822473,
             "state": "flat"
           },
           {
@@ -100,31 +100,31 @@
           {
             "name": "原油",
             "symbol": "CL=F",
-            "price": 99.14,
+            "price": 99.16,
             "previousClose": 101.41,
-            "pctChange": -0.022384380238635204,
+            "pctChange": -0.022187161029484273,
             "state": "down"
           }
         ]
       },
       "taiwan": {
-        "direction": "中性",
-        "reason": "加權指數 -0.30%",
-        "avgReturn": -0.0029819115956677108,
+        "direction": "偏空",
+        "reason": "加權指數 -0.39%",
+        "avgReturn": -0.0038609857766267143,
         "signals": [
           {
             "name": "加權指數",
-            "pctChange": -0.0029819115956677108,
-            "state": "flat"
+            "pctChange": -0.0038609857766267143,
+            "state": "down"
           }
         ],
-        "txBasisNote": "台指期基差 0.01%，接近平盤"
+        "txBasisNote": "台指期基差 0.05%，接近平盤"
       }
     },
     "intl": {
       "direction": "偏空",
       "reason": "11 項國際指標中 1 項上漲、9 項下跌，平均漲跌幅 -3.75%",
-      "avgReturn": -0.03747937318848747,
+      "avgReturn": -0.03745787350604449,
       "signals": [
         {
           "name": "道瓊工業指數",
@@ -193,9 +193,9 @@
         {
           "name": "美元指數",
           "symbol": "DX-Y.NYB",
-          "price": 101.748,
+          "price": 101.752,
           "previousClose": 101.84,
-          "pctChange": -0.0009033778476040726,
+          "pctChange": -0.0008641005498822473,
           "state": "flat"
         },
         {
@@ -209,32 +209,32 @@
         {
           "name": "原油",
           "symbol": "CL=F",
-          "price": 99.14,
+          "price": 99.16,
           "previousClose": 101.41,
-          "pctChange": -0.022384380238635204,
+          "pctChange": -0.022187161029484273,
           "state": "down"
         }
       ]
     },
     "taiwan": {
-      "direction": "中性",
-      "reason": "加權指數 -0.30%",
-      "avgReturn": -0.0029819115956677108,
+      "direction": "偏空",
+      "reason": "加權指數 -0.39%",
+      "avgReturn": -0.0038609857766267143,
       "signals": [
         {
           "name": "加權指數",
-          "pctChange": -0.0029819115956677108,
-          "state": "flat"
+          "pctChange": -0.0038609857766267143,
+          "state": "down"
         }
       ],
-      "txBasisNote": "台指期基差 0.01%，接近平盤"
+      "txBasisNote": "台指期基差 0.05%，接近平盤"
     },
     "tx_futures_raw": [
       {
         "symbolId": "TXF-S",
         "name": "臺指現貨",
         "status": "",
-        "last": 46777.53,
+        "last": 46707.31,
         "open": 46454.33,
         "high": 47254.93,
         "low": 46454.33,
@@ -243,52 +243,52 @@
         "limitDown": null,
         "openInterest": null,
         "quoteDate": "2026-10-21",
-        "quoteTime": "122530"
+        "quoteTime": "123050"
       },
       {
         "symbolId": "TXFJ6-F",
         "name": "臺指期106",
         "status": "",
-        "last": 46783,
+        "last": 46729,
         "open": 47240,
         "high": 47288,
-        "low": 46770,
+        "low": 46723,
         "ref": 46341,
         "limitUp": 50975,
         "limitDown": 41707,
         "openInterest": null,
         "quoteDate": "2026-10-21",
-        "quoteTime": "122531"
+        "quoteTime": "123051"
       },
       {
         "symbolId": "TXFK6-F",
         "name": "臺指期116",
         "status": "",
-        "last": 46965,
+        "last": 46921,
         "open": 47388,
         "high": 47450,
-        "low": 46950,
+        "low": 46910,
         "ref": 46510,
         "limitUp": 51161,
         "limitDown": 41859,
         "openInterest": null,
         "quoteDate": "2026-10-21",
-        "quoteTime": "122530"
+        "quoteTime": "123051"
       },
       {
         "symbolId": "TXFL6-F",
         "name": "臺指期126",
         "status": "",
-        "last": 47120,
+        "last": 47091,
         "open": 47543,
         "high": 47600,
-        "low": 47120,
+        "low": 47091,
         "ref": 46651,
         "limitUp": 51316,
         "limitDown": 41986,
         "openInterest": null,
         "quoteDate": "2026-10-21",
-        "quoteTime": "121502"
+        "quoteTime": "122813"
       },
       {
         "symbolId": "TXFC7-F",
