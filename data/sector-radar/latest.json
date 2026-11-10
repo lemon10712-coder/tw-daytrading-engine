@@ -2,16 +2,16 @@
   "schema_version": 1,
   "date": "2026-11-10",
   "entry": {
-    "generated_at_taipei": "2026-11-10 10:15:35",
+    "generated_at_taipei": "2026-11-10 10:20:36",
     "sectors": [
       {
         "id": "foundry",
         "name": "晶圓代工",
         "verified": true,
         "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
+        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
+        "upCount": 1,
+        "totalCount": 1,
         "pctUp": null,
         "pctAboveVwap": null,
         "avgReturn": null,
@@ -20,17 +20,17 @@
           {
             "code": "2330",
             "name": "台積電",
-            "price": null,
-            "pctChange": null,
-            "vwap": 2268.2563171485654,
-            "aboveVwap": null
+            "price": 2265,
+            "pctChange": 0.013422818791946308,
+            "vwap": 2268.249417071444,
+            "aboveVwap": false
           },
           {
             "code": "2303",
             "name": "聯電",
             "price": null,
             "pctChange": null,
-            "vwap": 101.63647922093995,
+            "vwap": 101.64707793269785,
             "aboveVwap": null
           },
           {
@@ -38,7 +38,7 @@
             "name": "世界先進",
             "price": null,
             "pctChange": null,
-            "vwap": 138.24565456449903,
+            "vwap": 138.23669672291786,
             "aboveVwap": null
           },
           {
@@ -46,7 +46,7 @@
             "name": "力積電",
             "price": null,
             "pctChange": null,
-            "vwap": 61.89217347128989,
+            "vwap": 61.891607556294254,
             "aboveVwap": null
           }
         ]
@@ -69,7 +69,7 @@
             "name": "南亞科",
             "price": null,
             "pctChange": null,
-            "vwap": 395.8297598586456,
+            "vwap": 395.8514917745974,
             "aboveVwap": null
           },
           {
@@ -77,7 +77,7 @@
             "name": "華邦電",
             "price": null,
             "pctChange": null,
-            "vwap": 140.03513497441244,
+            "vwap": 140.02575392208576,
             "aboveVwap": null
           },
           {
@@ -85,7 +85,7 @@
             "name": "旺宏",
             "price": null,
             "pctChange": null,
-            "vwap": 86.89851186011941,
+            "vwap": 86.88926180721297,
             "aboveVwap": null
           }
         ]
@@ -93,6 +93,53 @@
       {
         "id": "ic_design",
         "name": "IC 設計",
+        "verified": true,
+        "classification": "弱同步偏多",
+        "reason": "3 檔中 3 檔上漲（100%）、1 檔站上VWAP（33%），平均漲跌幅 8.44%",
+        "upCount": 3,
+        "totalCount": 3,
+        "pctUp": 1,
+        "pctAboveVwap": 0.3333333333333333,
+        "avgReturn": 0.08443172018130478,
+        "medianReturn": 0.09967845659163987,
+        "stocks": [
+          {
+            "code": "2454",
+            "name": "聯發科",
+            "price": 3925,
+            "pctChange": 0.053691275167785234,
+            "vwap": 3960.11936847394,
+            "aboveVwap": false
+          },
+          {
+            "code": "2379",
+            "name": "瑞昱",
+            "price": null,
+            "pctChange": null,
+            "vwap": 761.6296495130852,
+            "aboveVwap": null
+          },
+          {
+            "code": "3661",
+            "name": "世芯-KY",
+            "price": 3420,
+            "pctChange": 0.09967845659163987,
+            "vwap": 3420,
+            "aboveVwap": false
+          },
+          {
+            "code": "3443",
+            "name": "創意",
+            "price": 7375,
+            "pctChange": 0.09992542878448919,
+            "vwap": 7295.694099039477,
+            "aboveVwap": true
+          }
+        ]
+      },
+      {
+        "id": "compound_semi",
+        "name": "化合物半導體／砷化鎵",
         "verified": true,
         "classification": "資料不足",
         "reason": "有效樣本數 1 檔，低於門檻 2 檔",
@@ -104,74 +151,27 @@
         "medianReturn": null,
         "stocks": [
           {
-            "code": "2454",
-            "name": "聯發科",
-            "price": null,
-            "pctChange": null,
-            "vwap": 3959.2991438253202,
-            "aboveVwap": null
-          },
-          {
-            "code": "2379",
-            "name": "瑞昱",
-            "price": null,
-            "pctChange": null,
-            "vwap": 761.2910253283928,
-            "aboveVwap": null
-          },
-          {
-            "code": "3661",
-            "name": "世芯-KY",
-            "price": null,
-            "pctChange": null,
-            "vwap": 3420,
-            "aboveVwap": null
-          },
-          {
-            "code": "3443",
-            "name": "創意",
-            "price": 7375,
-            "pctChange": 0.09992542878448919,
-            "vwap": 7288.600169854104,
-            "aboveVwap": true
-          }
-        ]
-      },
-      {
-        "id": "compound_semi",
-        "name": "化合物半導體／砷化鎵",
-        "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
-        "stocks": [
-          {
             "code": "3105",
             "name": "穩懋",
             "price": null,
             "pctChange": null,
-            "vwap": 489.64743292571404,
+            "vwap": 489.65095274485594,
             "aboveVwap": null
           },
           {
             "code": "2455",
             "name": "全新",
-            "price": null,
-            "pctChange": null,
-            "vwap": 370.7278613083378,
-            "aboveVwap": null
+            "price": 375.5,
+            "pctChange": 0.09956076134699854,
+            "vwap": 370.73761315766916,
+            "aboveVwap": true
           },
           {
             "code": "8086",
             "name": "宏捷科",
             "price": null,
             "pctChange": null,
-            "vwap": 100.92119357351149,
+            "vwap": 100.99614934229074,
             "aboveVwap": null
           }
         ]
@@ -180,21 +180,21 @@
         "id": "ai_server",
         "name": "AI 伺服器",
         "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
+        "classification": "強同步偏多",
+        "reason": "2 檔中 2 檔上漲（100%）、1 檔站上VWAP（50%），平均漲跌幅 1.03%",
+        "upCount": 2,
+        "totalCount": 2,
+        "pctUp": 1,
+        "pctAboveVwap": 0.5,
+        "avgReturn": 0.010333736242024112,
+        "medianReturn": 0.010333736242024112,
         "stocks": [
           {
             "code": "2382",
             "name": "廣達",
             "price": null,
             "pctChange": null,
-            "vwap": 301.61423253233824,
+            "vwap": 301.64529162891176,
             "aboveVwap": null
           },
           {
@@ -202,7 +202,7 @@
             "name": "緯創",
             "price": null,
             "pctChange": null,
-            "vwap": 171.52825514750447,
+            "vwap": 171.63691142688265,
             "aboveVwap": null
           },
           {
@@ -210,31 +210,31 @@
             "name": "緯穎",
             "price": null,
             "pctChange": null,
-            "vwap": 1708.5234005287928,
+            "vwap": 1708.6743625009528,
             "aboveVwap": null
           },
           {
             "code": "2356",
             "name": "英業達",
-            "price": null,
-            "pctChange": null,
-            "vwap": 57.18732230743808,
-            "aboveVwap": null
+            "price": 56.3,
+            "pctChange": 0.01258992805755388,
+            "vwap": 57.170178411899386,
+            "aboveVwap": false
           },
           {
             "code": "2376",
             "name": "技嘉",
-            "price": null,
-            "pctChange": null,
-            "vwap": 311.82693116970404,
-            "aboveVwap": null
+            "price": 312,
+            "pctChange": 0.008077544426494346,
+            "vwap": 311.8267017392746,
+            "aboveVwap": true
           },
           {
             "code": "2317",
             "name": "鴻海",
             "price": null,
             "pctChange": null,
-            "vwap": 245.3565436475646,
+            "vwap": 245.3416969496067,
             "aboveVwap": null
           }
         ]
@@ -257,7 +257,7 @@
             "name": "奇鋐",
             "price": null,
             "pctChange": null,
-            "vwap": 2752.9245067196916,
+            "vwap": 2752.9865720028047,
             "aboveVwap": null
           },
           {
@@ -265,7 +265,7 @@
             "name": "雙鴻",
             "price": null,
             "pctChange": null,
-            "vwap": 1230.3282019510402,
+            "vwap": 1230.7830353408392,
             "aboveVwap": null
           }
         ]
@@ -274,53 +274,53 @@
         "id": "pcb_substrate",
         "name": "PCB／載板",
         "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
-        "upCount": 1,
-        "totalCount": 1,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
+        "classification": "強同步偏多",
+        "reason": "3 檔中 3 檔上漲（100%）、3 檔站上VWAP（100%），平均漲跌幅 9.26%",
+        "upCount": 3,
+        "totalCount": 3,
+        "pctUp": 1,
+        "pctAboveVwap": 1,
+        "avgReturn": 0.09262312095497027,
+        "medianReturn": 0.09860664523043944,
         "stocks": [
           {
             "code": "3037",
             "name": "欣興",
             "price": null,
             "pctChange": null,
-            "vwap": 829.5494752585669,
+            "vwap": 829.5655822110289,
             "aboveVwap": null
           },
           {
             "code": "8046",
             "name": "南電",
-            "price": null,
-            "pctChange": null,
-            "vwap": 1012.967481935287,
-            "aboveVwap": null
+            "price": 1025,
+            "pctChange": 0.09860664523043944,
+            "vwap": 1013.1267795706217,
+            "aboveVwap": true
           },
           {
             "code": "3189",
             "name": "景碩",
-            "price": 744,
-            "pctChange": 0.0782608695652174,
-            "vwap": 740.404557119646,
+            "price": 745,
+            "pctChange": 0.07971014492753623,
+            "vwap": 740.4560184425847,
             "aboveVwap": true
           },
           {
             "code": "2368",
             "name": "金像電",
-            "price": null,
-            "pctChange": null,
-            "vwap": 970.7804409069169,
-            "aboveVwap": null
+            "price": 983,
+            "pctChange": 0.09955257270693513,
+            "vwap": 970.81011446829,
+            "aboveVwap": true
           },
           {
             "code": "2313",
             "name": "華通",
             "price": null,
             "pctChange": null,
-            "vwap": 185.80790857362004,
+            "vwap": 185.878746449694,
             "aboveVwap": null
           }
         ]
@@ -343,7 +343,7 @@
             "name": "國巨",
             "price": null,
             "pctChange": null,
-            "vwap": 435.30481215157636,
+            "vwap": 435.3112265752834,
             "aboveVwap": null
           },
           {
@@ -351,7 +351,7 @@
             "name": "華新科",
             "price": null,
             "pctChange": null,
-            "vwap": 303.0531286789414,
+            "vwap": 303.02629361572565,
             "aboveVwap": null
           },
           {
@@ -359,7 +359,7 @@
             "name": "禾伸堂",
             "price": null,
             "pctChange": null,
-            "vwap": 534.2204448204578,
+            "vwap": 534.2631417962122,
             "aboveVwap": null
           }
         ]
@@ -382,7 +382,7 @@
             "name": "友達",
             "price": null,
             "pctChange": null,
-            "vwap": 28.892447548620385,
+            "vwap": 28.883469360045957,
             "aboveVwap": null
           },
           {
@@ -390,7 +390,7 @@
             "name": "群創",
             "price": null,
             "pctChange": null,
-            "vwap": 40.89648997237949,
+            "vwap": 40.895230395062136,
             "aboveVwap": null
           }
         ]
@@ -413,7 +413,7 @@
             "name": "長榮",
             "price": null,
             "pctChange": null,
-            "vwap": 253.83487927876914,
+            "vwap": 253.85610137766847,
             "aboveVwap": null
           },
           {
@@ -421,7 +421,7 @@
             "name": "陽明",
             "price": null,
             "pctChange": null,
-            "vwap": 58.79896857997054,
+            "vwap": 58.80109276402801,
             "aboveVwap": null
           },
           {
@@ -429,7 +429,7 @@
             "name": "萬海",
             "price": null,
             "pctChange": null,
-            "vwap": 110.64533508028084,
+            "vwap": 110.67174797511629,
             "aboveVwap": null
           }
         ]
@@ -439,9 +439,9 @@
         "name": "金融",
         "verified": true,
         "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
+        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
+        "upCount": 1,
+        "totalCount": 1,
         "pctUp": null,
         "pctAboveVwap": null,
         "avgReturn": null,
@@ -452,23 +452,23 @@
             "name": "富邦金",
             "price": null,
             "pctChange": null,
-            "vwap": 154.52786503372252,
+            "vwap": 154.5145690472313,
             "aboveVwap": null
           },
           {
             "code": "2882",
             "name": "國泰金",
-            "price": null,
-            "pctChange": null,
-            "vwap": 112.05813068800967,
-            "aboveVwap": null
+            "price": 112.5,
+            "pctChange": 0.013513513513513514,
+            "vwap": 112.06016473985635,
+            "aboveVwap": true
           },
           {
             "code": "2891",
             "name": "中信金",
             "price": null,
             "pctChange": null,
-            "vwap": 74.87343702739938,
+            "vwap": 74.86127094782292,
             "aboveVwap": null
           }
         ]
@@ -491,7 +491,7 @@
             "name": "保瑞",
             "price": null,
             "pctChange": null,
-            "vwap": 407.0827966563248,
+            "vwap": 406.9448933705758,
             "aboveVwap": null
           },
           {
@@ -499,7 +499,7 @@
             "name": "藥華藥",
             "price": null,
             "pctChange": null,
-            "vwap": 1357.3627982899543,
+            "vwap": 1353.5955349307496,
             "aboveVwap": null
           },
           {
@@ -507,7 +507,7 @@
             "name": "美時",
             "price": null,
             "pctChange": null,
-            "vwap": 168.69225733566753,
+            "vwap": 168.74772606744065,
             "aboveVwap": null
           }
         ]
@@ -517,9 +517,9 @@
         "name": "塑化",
         "verified": true,
         "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
+        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
+        "upCount": 1,
+        "totalCount": 1,
         "pctUp": null,
         "pctAboveVwap": null,
         "avgReturn": null,
@@ -530,23 +530,23 @@
             "name": "台塑",
             "price": null,
             "pctChange": null,
-            "vwap": 71.51146643834377,
+            "vwap": 71.50905392094715,
             "aboveVwap": null
           },
           {
             "code": "1303",
             "name": "南亞",
-            "price": null,
-            "pctChange": null,
-            "vwap": 286.8985662781887,
-            "aboveVwap": null
+            "price": 289,
+            "pctChange": 0.09885931558935361,
+            "vwap": 286.90756868758035,
+            "aboveVwap": true
           },
           {
             "code": "1326",
             "name": "台化",
             "price": null,
             "pctChange": null,
-            "vwap": 72.57812659693768,
+            "vwap": 72.57180109310514,
             "aboveVwap": null
           }
         ]
@@ -555,29 +555,29 @@
         "id": "steel",
         "name": "鋼鐵",
         "verified": true,
-        "classification": "中性分化",
-        "reason": "2 檔中 0 檔上漲（0%）、0 檔站上VWAP（0%），平均漲跌幅 0.00%",
+        "classification": "資料不足",
+        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
         "upCount": 0,
-        "totalCount": 2,
-        "pctUp": 0,
-        "pctAboveVwap": 0,
-        "avgReturn": 0,
-        "medianReturn": 0,
+        "totalCount": 1,
+        "pctUp": null,
+        "pctAboveVwap": null,
+        "avgReturn": null,
+        "medianReturn": null,
         "stocks": [
           {
             "code": "2002",
             "name": "中鋼",
-            "price": 18.55,
-            "pctChange": 0,
-            "vwap": 18.634792133736365,
-            "aboveVwap": false
+            "price": null,
+            "pctChange": null,
+            "vwap": 18.630698794762612,
+            "aboveVwap": null
           },
           {
             "code": "2014",
             "name": "中鴻",
             "price": 15.15,
             "pctChange": 0,
-            "vwap": 15.155129401683688,
+            "vwap": 15.15436316513524,
             "aboveVwap": false
           }
         ]
@@ -600,7 +600,7 @@
             "name": "華新",
             "price": null,
             "pctChange": null,
-            "vwap": 34.1120320240375,
+            "vwap": 34.11008831760506,
             "aboveVwap": null
           },
           {
@@ -608,7 +608,7 @@
             "name": "大亞",
             "price": null,
             "pctChange": null,
-            "vwap": 31.914497623448113,
+            "vwap": 31.916081924466003,
             "aboveVwap": null
           },
           {
@@ -616,7 +616,7 @@
             "name": "宏泰",
             "price": null,
             "pctChange": null,
-            "vwap": 31.297016902268222,
+            "vwap": 31.292543275474642,
             "aboveVwap": null
           }
         ]
@@ -639,7 +639,7 @@
             "name": "華固",
             "price": null,
             "pctChange": null,
-            "vwap": 92.31389903353312,
+            "vwap": 92.31109690166814,
             "aboveVwap": null
           },
           {
@@ -655,7 +655,7 @@
             "name": "興富發",
             "price": null,
             "pctChange": null,
-            "vwap": 37.56556342293915,
+            "vwap": 37.56274450944819,
             "aboveVwap": null
           }
         ]
@@ -678,7 +678,7 @@
             "name": "漢翔",
             "price": null,
             "pctChange": null,
-            "vwap": 55.236865324851124,
+            "vwap": 55.23659331096661,
             "aboveVwap": null
           }
         ]
@@ -701,7 +701,7 @@
             "name": "上銀",
             "price": null,
             "pctChange": null,
-            "vwap": 300.6579152298596,
+            "vwap": 300.6207785368901,
             "aboveVwap": null
           },
           {
@@ -709,7 +709,7 @@
             "name": "所羅門",
             "price": null,
             "pctChange": null,
-            "vwap": 102.7076143361906,
+            "vwap": 102.70282818270226,
             "aboveVwap": null
           },
           {
@@ -717,7 +717,7 @@
             "name": "直得",
             "price": null,
             "pctChange": null,
-            "vwap": 116.56385518358336,
+            "vwap": 116.56341848599759,
             "aboveVwap": null
           },
           {
@@ -748,7 +748,7 @@
             "name": "華城",
             "price": null,
             "pctChange": null,
-            "vwap": 502.95401098261186,
+            "vwap": 503.04876778563613,
             "aboveVwap": null
           },
           {
@@ -756,7 +756,7 @@
             "name": "士電",
             "price": null,
             "pctChange": null,
-            "vwap": 175.04431091570464,
+            "vwap": 175.03663888601443,
             "aboveVwap": null
           },
           {
@@ -764,7 +764,7 @@
             "name": "亞力",
             "price": null,
             "pctChange": null,
-            "vwap": 85.79627149994211,
+            "vwap": 85.80222095534108,
             "aboveVwap": null
           },
           {
@@ -772,7 +772,7 @@
             "name": "中興電",
             "price": null,
             "pctChange": null,
-            "vwap": 146.68068210494062,
+            "vwap": 146.6963473924514,
             "aboveVwap": null
           }
         ]
@@ -780,6 +780,45 @@
       {
         "id": "networking",
         "name": "網通",
+        "verified": true,
+        "classification": "強同步偏多",
+        "reason": "2 檔中 2 檔上漲（100%）、2 檔站上VWAP（100%），平均漲跌幅 9.97%",
+        "upCount": 2,
+        "totalCount": 2,
+        "pctUp": 1,
+        "pctAboveVwap": 1,
+        "avgReturn": 0.09968355990181485,
+        "medianReturn": 0.09968355990181485,
+        "stocks": [
+          {
+            "code": "2345",
+            "name": "智邦",
+            "price": 1545,
+            "pctChange": 0.099644128113879,
+            "vwap": 1522.1846179670993,
+            "aboveVwap": true
+          },
+          {
+            "code": "5388",
+            "name": "中磊",
+            "price": null,
+            "pctChange": null,
+            "vwap": 68.41138283937363,
+            "aboveVwap": null
+          },
+          {
+            "code": "6285",
+            "name": "啟碁",
+            "price": 198.5,
+            "pctChange": 0.0997229916897507,
+            "vwap": 195.1965922897548,
+            "aboveVwap": true
+          }
+        ]
+      },
+      {
+        "id": "optical_comm",
+        "name": "光通訊",
         "verified": true,
         "classification": "資料不足",
         "reason": "有效樣本數 0 檔，低於門檻 2 檔",
@@ -791,59 +830,20 @@
         "medianReturn": null,
         "stocks": [
           {
-            "code": "2345",
-            "name": "智邦",
-            "price": null,
-            "pctChange": null,
-            "vwap": 1522.1482088222683,
-            "aboveVwap": null
-          },
-          {
-            "code": "5388",
-            "name": "中磊",
-            "price": null,
-            "pctChange": null,
-            "vwap": 68.40762253878118,
-            "aboveVwap": null
-          },
-          {
-            "code": "6285",
-            "name": "啟碁",
-            "price": null,
-            "pctChange": null,
-            "vwap": 195.13639789197646,
-            "aboveVwap": null
-          }
-        ]
-      },
-      {
-        "id": "optical_comm",
-        "name": "光通訊",
-        "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 1 檔，低於門檻 2 檔",
-        "upCount": 1,
-        "totalCount": 1,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
-        "stocks": [
-          {
             "code": "4979",
             "name": "華星光",
             "price": null,
             "pctChange": null,
-            "vwap": 381.47335871226306,
+            "vwap": 381.4784952379263,
             "aboveVwap": null
           },
           {
             "code": "3363",
             "name": "上詮",
-            "price": 415,
-            "pctChange": 0.09933774834437085,
-            "vwap": 409.43227450024386,
-            "aboveVwap": true
+            "price": null,
+            "pctChange": null,
+            "vwap": 409.4498207519476,
+            "aboveVwap": null
           },
           {
             "code": "3163",
@@ -859,30 +859,30 @@
         "id": "silicon_photonics",
         "name": "矽光子",
         "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
+        "classification": "弱同步偏多",
+        "reason": "3 檔中 3 檔上漲（100%）、1 檔站上VWAP（33%），平均漲跌幅 6.02%",
+        "upCount": 3,
+        "totalCount": 3,
+        "pctUp": 1,
+        "pctAboveVwap": 0.3333333333333333,
+        "avgReturn": 0.06020169108916037,
+        "medianReturn": 0.06753812636165578,
         "stocks": [
           {
             "code": "2330",
             "name": "台積電",
-            "price": null,
-            "pctChange": null,
-            "vwap": 2268.2563171485654,
-            "aboveVwap": null
+            "price": 2265,
+            "pctChange": 0.013422818791946308,
+            "vwap": 2268.249417071444,
+            "aboveVwap": false
           },
           {
             "code": "2345",
             "name": "智邦",
-            "price": null,
-            "pctChange": null,
-            "vwap": 1522.1482088222683,
-            "aboveVwap": null
+            "price": 1545,
+            "pctChange": 0.099644128113879,
+            "vwap": 1522.1846179670993,
+            "aboveVwap": true
           },
           {
             "code": "3081",
@@ -897,16 +897,16 @@
             "name": "眾達-KY",
             "price": null,
             "pctChange": null,
-            "vwap": 188.76368420247272,
+            "vwap": 188.78178566807134,
             "aboveVwap": null
           },
           {
             "code": "6830",
             "name": "汎銓",
-            "price": null,
-            "pctChange": null,
-            "vwap": 492.49094667815245,
-            "aboveVwap": null
+            "price": 490,
+            "pctChange": 0.06753812636165578,
+            "vwap": 492.56782010488473,
+            "aboveVwap": false
           }
         ]
       },
@@ -928,7 +928,7 @@
             "name": "貿聯-KY",
             "price": null,
             "pctChange": null,
-            "vwap": 1513.8189149643165,
+            "vwap": 1514.446098271547,
             "aboveVwap": null
           },
           {
@@ -936,7 +936,7 @@
             "name": "為升",
             "price": null,
             "pctChange": null,
-            "vwap": 79.37155147958876,
+            "vwap": 79.41443486050366,
             "aboveVwap": null
           },
           {
@@ -944,7 +944,7 @@
             "name": "同致",
             "price": null,
             "pctChange": null,
-            "vwap": 32.08102804429648,
+            "vwap": 32.07464494282734,
             "aboveVwap": null
           }
         ]
@@ -967,7 +967,7 @@
             "name": "雄獅",
             "price": null,
             "pctChange": null,
-            "vwap": 135.47699372993057,
+            "vwap": 135.47717703881412,
             "aboveVwap": null
           },
           {
@@ -998,7 +998,7 @@
             "name": "統一",
             "price": null,
             "pctChange": null,
-            "vwap": 75.17234054346976,
+            "vwap": 75.15964486952782,
             "aboveVwap": null
           },
           {
@@ -1006,7 +1006,7 @@
             "name": "統一超",
             "price": null,
             "pctChange": null,
-            "vwap": 210.026456376212,
+            "vwap": 210.0292069291478,
             "aboveVwap": null
           }
         ]
@@ -1015,30 +1015,30 @@
         "id": "etf_weighted",
         "name": "ETF 權值影響族群",
         "verified": true,
-        "classification": "資料不足",
-        "reason": "有效樣本數 0 檔，低於門檻 2 檔",
-        "upCount": 0,
-        "totalCount": 0,
-        "pctUp": null,
-        "pctAboveVwap": null,
-        "avgReturn": null,
-        "medianReturn": null,
+        "classification": "強同步偏多",
+        "reason": "2 檔中 2 檔上漲（100%）、2 檔站上VWAP（100%），平均漲跌幅 2.56%",
+        "upCount": 2,
+        "totalCount": 2,
+        "pctUp": 1,
+        "pctAboveVwap": 1,
+        "avgReturn": 0.02564401910554894,
+        "medianReturn": 0.02564401910554894,
         "stocks": [
           {
             "code": "0050",
             "name": "元大台灣50",
-            "price": null,
-            "pctChange": null,
-            "vwap": 99.71975694012916,
-            "aboveVwap": null
+            "price": 100,
+            "pctChange": 0.02616726526423804,
+            "vwap": 99.72369771155877,
+            "aboveVwap": true
           },
           {
             "code": "0056",
             "name": "元大高股息",
-            "price": null,
-            "pctChange": null,
-            "vwap": 52.84854690272565,
-            "aboveVwap": null
+            "price": 53.05,
+            "pctChange": 0.025120772946859847,
+            "vwap": 52.85348446791072,
+            "aboveVwap": true
           }
         ]
       }
